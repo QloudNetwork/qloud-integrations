@@ -1,2 +1,3 @@
-# powerproxy-integrations
-PowerProxy integration libraries
+# PowerProxy Integrations
+
+Collection of libraries to integrate PowerProxy with different web frameworks.
