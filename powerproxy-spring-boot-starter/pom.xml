@@ -110,8 +110,8 @@
 
     <distributionManagement>
         <repository>
-            <id>powerproxy</id>
-            <name>PowerProxy Integration Packages</name>
+            <id>github</id>
+            <name>PowerProxy Packages</name>
             <url>https://maven.pkg.github.com/SemanticlabsGmbH/powerproxy</url>
         </repository>
     </distributionManagement>
