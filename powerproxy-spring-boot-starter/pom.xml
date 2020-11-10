@@ -112,7 +112,7 @@
         <repository>
             <id>powerproxy</id>
             <name>PowerProxy Packages</name>
-            <url>https://maven.pkg.github.com/semanticlabsgmbh/powerproxy</url>
+            <url>https://maven.pkg.github.com/semanticlabsgmbh/powerproxy-integrations</url>
         </repository>
     </distributionManagement>
 </project>
