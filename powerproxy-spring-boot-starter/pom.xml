@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.powerproxy</groupId>
     <artifactId>powerproxy-spring-boot-starter</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>PowerProxy Spring Boot Starter</name>
 
@@ -107,4 +107,12 @@
             </plugin>
         </plugins>
     </build>
+
+    <distributionManagement>
+        <repository>
+            <id>powerproxy</id>
+            <name>PowerProxy Integration Packages</name>
+            <url>https://maven.pkg.github.com/SemanticlabsGmbH/powerproxy</url>
+        </repository>
+    </distributionManagement>
 </project>
