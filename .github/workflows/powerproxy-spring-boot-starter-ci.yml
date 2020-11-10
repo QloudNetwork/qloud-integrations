@@ -38,7 +38,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Deploy to GitHub Packages
         working-directory: powerproxy-spring-boot-starter
-        run: ./mvnw -B deploy --file pom.xml -s .mvn/settings.xml
+        run: ./mvnw -B deploy --file pom.xml --settings ./.mvn/settings.xml
         env:
           MAVEN_USERNAME: ${{ github.actor }}
           MAVEN_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
