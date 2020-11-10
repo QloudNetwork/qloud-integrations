@@ -9,13 +9,12 @@ import org.springframework.security.oauth2.jwt.JwtDecoder
 import org.springframework.security.oauth2.server.resource.web.BearerTokenResolver
 
 class PowerProxyAutoConfigurationTest {
-    private val contextRunner = WebApplicationContextRunner()
-            .withConfiguration(
-                AutoConfigurations.of(
-                    PowerProxyAutoConfiguration::class.java,
-                    AuthenticationConfiguration::class.java
-                )
-            )
+    private val contextRunner = WebApplicationContextRunner().withConfiguration(
+        AutoConfigurations.of(
+            PowerProxyAutoConfiguration::class.java,
+            AuthenticationConfiguration::class.java
+        )
+    )
 
     @Test
     fun `does not create any beans if powerproxy-secret is not set`() {
