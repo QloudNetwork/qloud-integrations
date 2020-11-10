@@ -1,0 +1,31 @@
+name: PowerProxy Spring Boot Starter with Maven
+
+# Build on every branch, but only if the files we care about have changed
+on:
+  push:
+    branches:
+      - "*"
+    paths:
+      - "powerproxy-spring-boot-starter/**"
+      - ".github/workflows/powerproxy-spring-boot-starter-deploy.yml"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 15
+      - uses: actions/cache@v1
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - name: Build with Maven
+        working-directory: powerproxy-spring-boot-starter
+        run: ./mvnw -B deploy --file pom.xml
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
