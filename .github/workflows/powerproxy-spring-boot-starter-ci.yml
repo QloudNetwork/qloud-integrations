@@ -36,9 +36,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 15
       - name: Deploy to GitHub Packages
         working-directory: powerproxy-spring-boot-starter
-        run: ./mvnw -B deploy --file pom.xml --settings ./.mvn/settings.xml
+        run: ./mvnw -B deploy --file pom.xml
         env:
-          MAVEN_USERNAME: ${{ github.actor }}
-          MAVEN_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
