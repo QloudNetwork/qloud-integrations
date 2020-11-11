@@ -16,6 +16,8 @@ import org.springframework.security.oauth2.jose.jws.MacAlgorithm.HS256
 import org.springframework.security.oauth2.jwt.JwtDecoder
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder
 import org.springframework.security.oauth2.server.resource.web.BearerTokenResolver
+import org.springframework.web.method.support.HandlerMethodArgumentResolver
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 import javax.crypto.SecretKey
 import javax.crypto.spec.SecretKeySpec
 
@@ -34,6 +36,13 @@ class PowerProxyAutoConfiguration(powerProxyProperties: PowerProxyProperties) {
     @Bean
     fun bearerTokenResolver(): BearerTokenResolver {
         return PowerProxyTokenResolver()
+    }
+
+    @Configuration
+    class PowerProxyWebMvcConfiguration : WebMvcConfigurer {
+        override fun addArgumentResolvers(resolvers: MutableList<HandlerMethodArgumentResolver>) {
+            resolvers.add(PowerProxyUserArgumentResolver())
+        }
     }
 
     @Configuration
