@@ -1,6 +1,8 @@
 package io.powerproxy.integrations.boot
 
+import io.powerproxy.integrations.boot.logout.LogoutController
 import org.springframework.boot.autoconfigure.AutoConfigureBefore
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.boot.autoconfigure.security.oauth2.resource.servlet.OAuth2ResourceServerAutoConfiguration
@@ -38,6 +40,12 @@ class PowerProxyAutoConfiguration(powerProxyProperties: PowerProxyProperties) {
         return PowerProxyTokenResolver()
     }
 
+    @Bean
+    @ConditionalOnExpression("not '\${powerproxy.logoutPath:}'.isBlank()")
+    fun logoutController(): LogoutController {
+        return LogoutController()
+    }
+
     @Configuration
     class PowerProxyWebMvcConfiguration : WebMvcConfigurer {
         override fun addArgumentResolvers(resolvers: MutableList<HandlerMethodArgumentResolver>) {
@@ -59,4 +67,7 @@ class PowerProxyAutoConfiguration(powerProxyProperties: PowerProxyProperties) {
 
 @ConstructorBinding
 @ConfigurationProperties(prefix = "powerproxy")
-data class PowerProxyProperties(val secret: String)
+data class PowerProxyProperties(
+    val secret: String,
+    val logoutPath: String?
+)

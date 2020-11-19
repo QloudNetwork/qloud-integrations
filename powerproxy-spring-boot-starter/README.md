@@ -22,3 +22,15 @@ powerproxy.secret=<secret>
 ```
 
 Your application will then receive an authenticated request. See [Spring Security Integrations](https://docs.spring.io/spring-security/site/docs/current/reference/html5/#integrations).
+
+## Logout Controller
+
+There is an optional logout controller that will delete the JWT token cookie and redirect the user agent to the
+PowerProxy login page. It can be enabled by configuring the URL path for this controller:
+
+```properties
+powerproxy.logoutPath=/logout
+```
+
+The controller also supports a `return_path` parameter. If present, the endpoint will redirect to the given path instead
+of redirecting to the PowerProxy login page.
