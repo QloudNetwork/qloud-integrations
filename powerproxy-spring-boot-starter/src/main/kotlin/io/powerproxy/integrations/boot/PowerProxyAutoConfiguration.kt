@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.security.oauth2.resource.servlet.O
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.ConstructorBinding
 import org.springframework.boot.context.properties.EnableConfigurationProperties
+import org.springframework.boot.context.properties.bind.DefaultValue
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -16,10 +17,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy.STATELESS
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm.HS256
 import org.springframework.security.oauth2.jwt.JwtDecoder
+import org.springframework.security.oauth2.jwt.JwtTimestampValidator
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder
 import org.springframework.security.oauth2.server.resource.web.BearerTokenResolver
 import org.springframework.web.method.support.HandlerMethodArgumentResolver
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
+import java.time.Duration
 import javax.crypto.SecretKey
 import javax.crypto.spec.SecretKeySpec
 
@@ -29,22 +32,20 @@ import javax.crypto.spec.SecretKeySpec
 @EnableConfigurationProperties(PowerProxyProperties::class)
 class PowerProxyAutoConfiguration(powerProxyProperties: PowerProxyProperties) {
     private val secretKey: SecretKey = SecretKeySpec(powerProxyProperties.secret.toByteArray(), "AES")
+    private val clockSkewSeconds: Long = powerProxyProperties.clockSkewSeconds
 
     @Bean
-    fun jwtDecoder(): JwtDecoder {
-        return NimbusJwtDecoder.withSecretKey(secretKey).macAlgorithm(HS256).build()
-    }
+    fun jwtDecoder(): JwtDecoder =
+            NimbusJwtDecoder.withSecretKey(secretKey).macAlgorithm(HS256).build().apply {
+                setJwtValidator(JwtTimestampValidator(Duration.ofSeconds(clockSkewSeconds)))
+            }
 
     @Bean
-    fun bearerTokenResolver(): BearerTokenResolver {
-        return PowerProxyTokenResolver()
-    }
+    fun bearerTokenResolver(): BearerTokenResolver = PowerProxyTokenResolver()
 
     @Bean
     @ConditionalOnExpression("not '\${powerproxy.logoutPath:}'.isBlank()")
-    fun logoutController(): LogoutController {
-        return LogoutController()
-    }
+    fun logoutController(): LogoutController = LogoutController()
 
     @Configuration
     class PowerProxyWebMvcConfiguration : WebMvcConfigurer {
@@ -68,6 +69,20 @@ class PowerProxyAutoConfiguration(powerProxyProperties: PowerProxyProperties) {
 @ConstructorBinding
 @ConfigurationProperties(prefix = "powerproxy")
 data class PowerProxyProperties(
+    /**
+     * Secret used to verify JWT token signature.
+     */
     val secret: String,
-    val logoutPath: String?
+    /**
+     * Optional path to the endpoint that redirects to PowerProxy's logout endpoint.
+     *
+     * No endpoint is registered if this property is undefined or blank.
+     */
+    val logoutPath: String?,
+    /**
+     * Offset in number of seconds to tolerate when validating JWT token timestampts.
+     *
+     * Useful if the clock of the application server is not in sync with the clock of PowerProxy's authentication server.
+     */
+    @DefaultValue("30") val clockSkewSeconds: Long
 )
