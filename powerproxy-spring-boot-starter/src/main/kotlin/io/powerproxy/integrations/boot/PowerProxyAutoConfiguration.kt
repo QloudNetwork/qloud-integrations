@@ -44,7 +44,7 @@ class PowerProxyAutoConfiguration(powerProxyProperties: PowerProxyProperties) {
     fun bearerTokenResolver(): BearerTokenResolver = PowerProxyTokenResolver()
 
     @Bean
-    @ConditionalOnExpression("not '\${powerproxy.logoutPath:}'.isBlank()")
+    @ConditionalOnExpression("not '\${powerproxy.logout-path:}'.isBlank()")
     fun logoutController(): LogoutController = LogoutController()
 
     @Configuration
