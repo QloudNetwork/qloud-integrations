@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.util.UriComponentsBuilder
 
 @Controller
-@RequestMapping("\${powerproxy.logoutPath}")
+@RequestMapping("\${powerproxy.logout-path}")
 class LogoutController {
     private companion object {
         const val POWERPROXY_LOGOUT_PATH = "logout"
