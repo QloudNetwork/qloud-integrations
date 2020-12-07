@@ -13,5 +13,5 @@ internal class JwtPowerProxyUser(authentication: JwtAuthenticationToken) : Power
     override val subject = authentication.token.claims["sub"] as String
     override val name = authentication.token.claims["name"] as String
     override val email = authentication.token.claims["email"] as String?
-    override val identityProvider = authentication.token.claims["pp:via"] as String
+    override val identityProvider = authentication.token.claims["pp:idp"] as String
 }

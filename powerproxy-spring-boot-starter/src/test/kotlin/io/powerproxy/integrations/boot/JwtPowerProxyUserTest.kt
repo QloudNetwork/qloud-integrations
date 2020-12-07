@@ -18,7 +18,7 @@ class JwtPowerProxyUserTest {
                 "sub" to SUBJECT,
                 "name" to NAME,
                 "email" to EMAIL,
-                "pp:via" to IDENTITY_PROVIDER
+                "pp:idp" to IDENTITY_PROVIDER
             )
         )
 
