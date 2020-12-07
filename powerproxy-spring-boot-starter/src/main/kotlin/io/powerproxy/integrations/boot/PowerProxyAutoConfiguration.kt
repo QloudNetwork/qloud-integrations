@@ -36,9 +36,9 @@ class PowerProxyAutoConfiguration(powerProxyProperties: PowerProxyProperties) {
 
     @Bean
     fun jwtDecoder(): JwtDecoder =
-            NimbusJwtDecoder.withSecretKey(secretKey).macAlgorithm(HS256).build().apply {
-                setJwtValidator(JwtTimestampValidator(Duration.ofSeconds(clockSkewSeconds)))
-            }
+        NimbusJwtDecoder.withSecretKey(secretKey).macAlgorithm(HS256).build().apply {
+            setJwtValidator(JwtTimestampValidator(Duration.ofSeconds(clockSkewSeconds)))
+        }
 
     @Bean
     fun bearerTokenResolver(): BearerTokenResolver = PowerProxyTokenResolver()
@@ -59,9 +59,9 @@ class PowerProxyAutoConfiguration(powerProxyProperties: PowerProxyProperties) {
     class PowerProxySecurityConfiguration : WebSecurityConfigurerAdapter() {
         override fun configure(http: HttpSecurity) {
             http.oauth2ResourceServer { configurer -> configurer.jwt() }
-                    .authorizeRequests()
-                    .anyRequest().authenticated().and()
-                    .sessionManagement().sessionCreationPolicy(STATELESS)
+                .authorizeRequests()
+                .anyRequest().authenticated().and()
+                .sessionManagement().sessionCreationPolicy(STATELESS)
         }
     }
 }

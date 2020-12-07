@@ -14,6 +14,7 @@ class LogoutController {
         const val POWERPROXY_LOGOUT_PATH = "logout"
         const val POWERPROXY_RETURN_PATH_PARAM = "return_path"
     }
+
     @GetMapping
     fun logout(
         authentication: JwtAuthenticationToken,
@@ -25,11 +26,11 @@ class LogoutController {
     }
 
     private fun buildLogoutUrl(issuerUri: String, returnPath: String?): String =
-            UriComponentsBuilder.fromUriString(issuerUri)
-                    .pathSegment(POWERPROXY_LOGOUT_PATH).also { builder ->
-                        if (!returnPath.isNullOrBlank()) {
-                            builder.queryParam(POWERPROXY_RETURN_PATH_PARAM, returnPath)
-                        }
-                    }
-                    .toUriString()
+        UriComponentsBuilder.fromUriString(issuerUri)
+            .pathSegment(POWERPROXY_LOGOUT_PATH).also { builder ->
+                if (!returnPath.isNullOrBlank()) {
+                    builder.queryParam(POWERPROXY_RETURN_PATH_PARAM, returnPath)
+                }
+            }
+            .toUriString()
 }

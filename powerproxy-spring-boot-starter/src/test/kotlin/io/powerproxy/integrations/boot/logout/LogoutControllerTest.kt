@@ -11,9 +11,9 @@ class LogoutControllerTest {
         const val RETURN_PATH = "/return-path"
         fun jwtToken(issuerUri: String) = JwtAuthenticationToken(
             Jwt.withTokenValue("any-token")
-                    .header("alg", "none")
-                    .issuer(issuerUri)
-                    .build()
+                .header("alg", "none")
+                .issuer(issuerUri)
+                .build()
         )
     }
 

@@ -21,6 +21,7 @@ class PowerProxyUserArgumentResolverTest {
         val ANY_WEB_REQUEST = mockk<NativeWebRequest>()
         val ANY_BINDER_FACTORY = mockk<WebDataBinderFactory>()
     }
+
     private val resolver = PowerProxyUserArgumentResolver()
 
     @AfterEach
@@ -30,7 +31,7 @@ class PowerProxyUserArgumentResolverTest {
 
     @Test
     fun `resolveArgument returns PowerProxyUser if authentication is JwtAuthenticationToken`() {
-        with (SecurityContextHolder.getContext()) {
+        with(SecurityContextHolder.getContext()) {
             authentication = JWT_AUTHENTICATION_TOKEN
         }
 
@@ -41,7 +42,7 @@ class PowerProxyUserArgumentResolverTest {
 
     @Test
     fun `resolveArgument returns null if authentication is not JwtAuthenticationToken`() {
-        with (SecurityContextHolder.getContext()) {
+        with(SecurityContextHolder.getContext()) {
             authentication = UsernamePasswordAuthenticationToken(ANY_PRINCIPAL, ANY_CREDENTIALS)
         }
 

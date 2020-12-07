@@ -10,7 +10,7 @@ import org.springframework.web.method.support.ModelAndViewContainer
 
 class PowerProxyUserArgumentResolver : HandlerMethodArgumentResolver {
     override fun supportsParameter(parameter: MethodParameter): Boolean =
-            parameter.parameterType == PowerProxyUser::class.java
+        parameter.parameterType == PowerProxyUser::class.java
 
     override fun resolveArgument(
         parameter: MethodParameter,

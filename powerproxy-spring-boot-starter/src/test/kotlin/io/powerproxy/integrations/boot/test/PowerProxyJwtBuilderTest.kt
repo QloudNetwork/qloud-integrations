@@ -27,11 +27,11 @@ class PowerProxyJwtBuilderTest {
     @Test
     fun `build returns JWT with provided claims`() {
         val jwt = PowerProxyJwtBuilder()
-                .subject(SUBJECT)
-                .name(NAME)
-                .email(EMAIL)
-                .identityProvider(IDENTITY_PROVIDER)
-                .build()
+            .subject(SUBJECT)
+            .name(NAME)
+            .email(EMAIL)
+            .identityProvider(IDENTITY_PROVIDER)
+            .build()
 
         assertSoftly { softly ->
             softly.assertThat(jwt.subject).isEqualTo(SUBJECT)

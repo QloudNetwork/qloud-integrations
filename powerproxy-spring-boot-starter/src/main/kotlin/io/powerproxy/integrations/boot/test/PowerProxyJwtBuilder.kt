@@ -1,7 +1,7 @@
 package io.powerproxy.integrations.boot.test
 
 import org.springframework.security.oauth2.jwt.Jwt
-import java.util.UUID
+import java.util.*
 
 /**
  * To be used to build PowerProxy JWTs in Spring MVC integration tests.
@@ -35,10 +35,10 @@ class PowerProxyJwtBuilder(
     }
 
     fun build(): Jwt = Jwt.withTokenValue("token")
-            .header("alg", "HS256")
-            .subject(subject)
-            .claim("name", name)
-            .claim("email", email)
-            .claim("pp:via", identityProvider)
-            .build()
+        .header("alg", "HS256")
+        .subject(subject)
+        .claim("name", name)
+        .claim("email", email)
+        .claim("pp:via", identityProvider)
+        .build()
 }

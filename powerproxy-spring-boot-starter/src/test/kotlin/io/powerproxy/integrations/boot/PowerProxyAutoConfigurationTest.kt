@@ -27,9 +27,9 @@ class PowerProxyAutoConfigurationTest {
     fun `creates powerproxy auto configuration if powerproxy-secret is set`() {
         contextRunner.withPropertyValues("powerproxy.secret=secret").run { context ->
             assertThat(context)
-                    .hasSingleBean(PowerProxyAutoConfiguration::class.java)
-                    .hasSingleBean(JwtDecoder::class.java)
-                    .hasSingleBean(BearerTokenResolver::class.java)
+                .hasSingleBean(PowerProxyAutoConfiguration::class.java)
+                .hasSingleBean(JwtDecoder::class.java)
+                .hasSingleBean(BearerTokenResolver::class.java)
         }
     }
 }
