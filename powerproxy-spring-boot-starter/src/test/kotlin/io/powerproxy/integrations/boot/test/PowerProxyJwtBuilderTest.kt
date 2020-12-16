@@ -9,6 +9,8 @@ class PowerProxyJwtBuilderTest {
         const val NAME = "Sepp Forcher"
         const val EMAIL = "sepp.forcher@powerproxy.io"
         const val IDENTITY_PROVIDER = "google"
+        const val IDENTITY_PROVIDER_SUBJECT = "123"
+        const val USER_DATABASE = "user-database"
     }
 
     @Test
@@ -20,7 +22,9 @@ class PowerProxyJwtBuilderTest {
             softly.assertThat(jwt.subject).isNotBlank
             softly.assertThat(jwt.claims["name"]).isNotNull
             softly.assertThat(jwt.claims["email"]).isNotNull
-            softly.assertThat(jwt.claims["pp:via"]).isNotNull
+            softly.assertThat(jwt.claims["pp:idp"]).isNotNull
+            softly.assertThat(jwt.claims["pp:idp-sub"]).isNotNull
+            softly.assertThat(jwt.claims["pp:udb"]).isNotNull
         }
     }
 
@@ -31,13 +35,17 @@ class PowerProxyJwtBuilderTest {
             .name(NAME)
             .email(EMAIL)
             .identityProvider(IDENTITY_PROVIDER)
+            .identityProviderSubject(IDENTITY_PROVIDER_SUBJECT)
+            .userDatabase(USER_DATABASE)
             .build()
 
         assertSoftly { softly ->
             softly.assertThat(jwt.subject).isEqualTo(SUBJECT)
             softly.assertThat(jwt.claims["name"]).isEqualTo(NAME)
             softly.assertThat(jwt.claims["email"]).isEqualTo(EMAIL)
-            softly.assertThat(jwt.claims["pp:via"]).isEqualTo(IDENTITY_PROVIDER)
+            softly.assertThat(jwt.claims["pp:idp"]).isEqualTo(IDENTITY_PROVIDER)
+            softly.assertThat(jwt.claims["pp:idp-sub"]).isEqualTo(IDENTITY_PROVIDER_SUBJECT)
+            softly.assertThat(jwt.claims["pp:udb"]).isEqualTo(USER_DATABASE)
         }
     }
 }
