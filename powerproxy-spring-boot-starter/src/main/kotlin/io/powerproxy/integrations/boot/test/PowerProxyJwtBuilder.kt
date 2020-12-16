@@ -12,7 +12,9 @@ class PowerProxyJwtBuilder(
     private var subject: String = UUID.randomUUID().toString(),
     private var name: String = "Max Power",
     private var email: String? = "max.power@powerproxy.io",
-    private var identityProvider: String = "google"
+    private var identityProvider: String = "google",
+    private var identityProviderSubject: String = "123",
+    private var userDatabase: String = UUID.randomUUID().toString()
 ) {
     fun subject(subject: String): PowerProxyJwtBuilder {
         this.subject = subject
@@ -34,11 +36,23 @@ class PowerProxyJwtBuilder(
         return this
     }
 
+    fun identityProviderSubject(identityProviderSubject: String): PowerProxyJwtBuilder {
+        this.identityProviderSubject = identityProviderSubject
+        return this
+    }
+
+    fun userDatabase(userDatabase: String): PowerProxyJwtBuilder {
+        this.userDatabase = userDatabase
+        return this
+    }
+
     fun build(): Jwt = Jwt.withTokenValue("token")
         .header("alg", "HS256")
         .subject(subject)
         .claim("name", name)
         .claim("email", email)
-        .claim("pp:via", identityProvider)
+        .claim("pp:idp", identityProvider)
+        .claim("pp:idp-sub", identityProviderSubject)
+        .claim("pp:udb", userDatabase)
         .build()
 }
