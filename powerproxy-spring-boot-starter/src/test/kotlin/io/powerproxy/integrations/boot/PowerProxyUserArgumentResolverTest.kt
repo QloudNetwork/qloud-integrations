@@ -37,7 +37,7 @@ class PowerProxyUserArgumentResolverTest {
 
         val user = resolver.resolveArgument(ANY_PARAMETER, ANY_MAV_CONTAINER, ANY_WEB_REQUEST, ANY_BINDER_FACTORY)
 
-        assertThat(user).isEqualToComparingFieldByField(JwtPowerProxyUser(JWT_AUTHENTICATION_TOKEN))
+        assertThat(user).isEqualToComparingFieldByField(JwtUser(JWT_AUTHENTICATION_TOKEN))
     }
 
     @Test

@@ -10,7 +10,7 @@ import org.springframework.web.method.support.ModelAndViewContainer
 
 class PowerProxyUserArgumentResolver : HandlerMethodArgumentResolver {
     override fun supportsParameter(parameter: MethodParameter): Boolean =
-        parameter.parameterType == PowerProxyUser::class.java
+        parameter.parameterType == User::class.java
 
     override fun resolveArgument(
         parameter: MethodParameter,
@@ -18,7 +18,7 @@ class PowerProxyUserArgumentResolver : HandlerMethodArgumentResolver {
         webRequest: NativeWebRequest,
         binderFactory: WebDataBinderFactory?
     ): Any? = when (val authentication = SecurityContextHolder.getContext().authentication) {
-        is JwtAuthenticationToken -> JwtPowerProxyUser(authentication)
+        is JwtAuthenticationToken -> JwtUser(authentication)
         else -> null
     }
 }

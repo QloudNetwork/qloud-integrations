@@ -3,7 +3,7 @@ package io.powerproxy.integrations.boot
 import org.assertj.core.api.SoftAssertions.assertSoftly
 import org.junit.jupiter.api.Test
 
-class JwtPowerProxyUserTest {
+class JwtUserTest {
     private companion object {
         const val SUBJECT = "subject"
         const val NAME = "name"
@@ -22,10 +22,10 @@ class JwtPowerProxyUserTest {
             )
         )
 
-        val user = JwtPowerProxyUser(token)
+        val user = JwtUser(token)
 
         assertSoftly { softly ->
-            softly.assertThat(user.subject).isEqualTo(SUBJECT)
+            softly.assertThat(user.id).isEqualTo(SUBJECT)
             softly.assertThat(user.name).isEqualTo(NAME)
             softly.assertThat(user.email).isEqualTo(EMAIL)
             softly.assertThat(user.identityProvider).isEqualTo(IDENTITY_PROVIDER)
