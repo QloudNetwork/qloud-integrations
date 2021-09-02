@@ -1,5 +1,5 @@
 {
-  "name": "@powerproxy/express",
+  "name": "@SemanticlabsGmbH/powerproxy-express",
   "version": "0.1.0",
   "description": "PowerProxy integration for express.js",
   "main": "index.js",
