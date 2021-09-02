@@ -1,0 +1,23 @@
+name: PowerProxy Express CI
+
+# Build on every branch, but only if the files we care about have changed
+on:
+  push:
+    branches:
+      - "*"
+    paths:
+      - "powerproxy-express/**"
+      - ".github/workflows/powerproxy-express-ci.yml"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - run: npm install
+        working-directory: powerproxy-express
+      - run: npm test
+        working-directory: powerproxy-express
