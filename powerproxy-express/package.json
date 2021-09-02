@@ -1,0 +1,36 @@
+{
+  "name": "@powerproxy/express",
+  "version": "0.1.0",
+  "description": "PowerProxy integration for express.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SemanticlabsGmbH/powerproxy-integrations.git"
+  },
+  "keywords": [
+    "node.js",
+    "javascript",
+    "express",
+    "powerproxy",
+    "authentication"
+  ],
+  "author": "Semanticlabs GmbH",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SemanticlabsGmbH/powerproxy-integrations/issues"
+  },
+  "homepage": "https://github.com/SemanticlabsGmbH/powerproxy-integrations#readme",
+  "dependencies": {
+    "cookie": "^0.4.1",
+    "express-jwt": "^6.1.0",
+    "jsonwebtoken": "^8.5.1"
+  },
+  "devDependencies": {
+    "express": "^4.17.1",
+    "jest": "^27.0.1",
+    "supertest": "^6.1.6"
+  }
+}
