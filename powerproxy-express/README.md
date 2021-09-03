@@ -5,7 +5,7 @@
 Install the dependency:
 
 ```shell
-npm install --save powerproxy-express
+npm install --save @semanticlabsgmbh/powerproxy-express
 ```
 
 Add the PowerProxy middleware to your Express application:
