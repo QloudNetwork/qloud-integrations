@@ -29,7 +29,7 @@ app.get("/", (req, res) => {
 
 ```javascript
 const express = require("express");
-const powerproxy = require("powerproxy-express");
+const powerproxy = require("@semanticlabsgmbh/powerproxy-express");
 
 const port = process.env.PORT || 3000;
 const app = express();
