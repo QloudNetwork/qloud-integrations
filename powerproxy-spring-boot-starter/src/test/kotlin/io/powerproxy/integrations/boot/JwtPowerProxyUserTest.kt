@@ -9,6 +9,8 @@ class JwtPowerProxyUserTest {
         const val NAME = "name"
         const val EMAIL = "email@domain.com"
         const val IDENTITY_PROVIDER = "google"
+        const val IDENTITY_PROVIDER_SUBJECT = "123456"
+        const val USER_DATABASE = "0c955b26-0586-49d2-b3f2-8149e6d2c8c4"
     }
 
     @Test
@@ -18,7 +20,9 @@ class JwtPowerProxyUserTest {
                 "sub" to SUBJECT,
                 "name" to NAME,
                 "email" to EMAIL,
-                "pp:idp" to IDENTITY_PROVIDER
+                "pp:idp" to IDENTITY_PROVIDER,
+                "pp:idp-sub" to IDENTITY_PROVIDER_SUBJECT,
+                "pp:udb" to USER_DATABASE,
             )
         )
 
@@ -29,6 +33,8 @@ class JwtPowerProxyUserTest {
             softly.assertThat(user.name).isEqualTo(NAME)
             softly.assertThat(user.email).isEqualTo(EMAIL)
             softly.assertThat(user.identityProvider).isEqualTo(IDENTITY_PROVIDER)
+            softly.assertThat(user.identityProviderSubject).isEqualTo(IDENTITY_PROVIDER_SUBJECT)
+            softly.assertThat(user.userDatabase).isEqualTo(USER_DATABASE)
         }
     }
 }
