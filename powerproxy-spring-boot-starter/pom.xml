@@ -11,12 +11,14 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <spring-boot.version>2.4.2</spring-boot.version>
-        <java.version>8</java.version>
-        <kotlin.version>1.4.21</kotlin.version>
-        <mockk.version>1.10.2</mockk.version>
+        <spring-boot.version>2.6.7</spring-boot.version>
+        <kotlin.version>1.6.10</kotlin.version>
+        <mockk.version>1.12.3</mockk.version>
         <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+        <java.version>15</java.version>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
     </properties>
 
     <dependencies>
@@ -129,7 +131,7 @@
                     <compilerPlugins>
                         <plugin>spring</plugin>
                     </compilerPlugins>
-                    <jvmTarget>1.8</jvmTarget>
+                    <jvmTarget>${java.version}</jvmTarget>
                 </configuration>
                 <dependencies>
                     <dependency>
