@@ -20,6 +20,7 @@ import org.springframework.security.oauth2.jwt.JwtDecoder
 import org.springframework.security.oauth2.jwt.JwtTimestampValidator
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder
 import org.springframework.security.oauth2.server.resource.web.BearerTokenResolver
+import org.springframework.security.web.SecurityFilterChain
 import org.springframework.web.method.support.HandlerMethodArgumentResolver
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 import java.time.Duration
@@ -55,13 +56,15 @@ class PowerProxyAutoConfiguration(powerProxyProperties: PowerProxyProperties) {
     }
 
     @Configuration
-    @ConditionalOnMissingBean(WebSecurityConfigurerAdapter::class)
-    class PowerProxySecurityConfiguration : WebSecurityConfigurerAdapter() {
-        override fun configure(http: HttpSecurity) {
-            http.oauth2ResourceServer { configurer -> configurer.jwt() }
-                .authorizeRequests()
-                .anyRequest().authenticated().and()
-                .sessionManagement().sessionCreationPolicy(STATELESS)
+    @ConditionalOnMissingBean(SecurityFilterChain::class, WebSecurityConfigurerAdapter::class)
+    class PowerProxySecurityConfiguration {
+        @Bean
+        fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
+            return http.oauth2ResourceServer { configurer -> configurer.jwt() }
+                .authorizeRequests { authorize ->
+                    authorize.anyRequest().authenticated().and()
+                        .sessionManagement().sessionCreationPolicy(STATELESS)
+                }.build()
         }
     }
 }
