@@ -1,7 +1,7 @@
-const jwt = require("express-jwt");
+const { expressjwt: jwt } = require("express-jwt");
 const cookie = require("cookie");
 
-function powerproxy({ secret}) {
+function powerproxy({secret}) {
     return function (req, res, next) {
         const cookies = req.headers.cookie ? cookie.parse(req.headers.cookie) : {};
         jwt({

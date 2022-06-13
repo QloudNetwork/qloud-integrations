@@ -6,7 +6,7 @@ const app = express();
 app.use(powerproxy({secret: "ppsecretppsecretppsecretppsecret"}));
 
 app.get("/", (req, res) => {
-    res.json(req.user);
+    res.json(req.auth);
 });
 
 app.listen(port, () => {
