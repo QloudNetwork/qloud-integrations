@@ -17,11 +17,11 @@ app.use(powerproxy({secret: "insert-powerproxy-secret-here"}));
 ```
 
 All requests not having a valid token will then automatically be redirected to the PowerProxy login page. For all other
-requests the user information will be available via `req.user`:
+requests the user information will be available via `req.auth`:
 
 ```javascript
 app.get("/", (req, res) => {
-    res.json(req.user);
+    res.json(req.auth);
 });
 ```
 
@@ -36,7 +36,7 @@ const app = express();
 app.use(powerproxy({secret: "insert-powerproxy-secret-here"}));
 
 app.get("/", (req, res) => {
-    res.json(req.user);
+    res.json(req.auth);
 });
 
 app.listen(port);
