@@ -17,9 +17,9 @@ class PowerProxyTokenResolverTest {
     @ParameterizedTest
     @ValueSource(
         strings = [
-            "__pp__token__",
-            "__Pp__Token__",
-            "__PP__TOKEN__"
+            "__q__token__",
+            "__q__Token__",
+            "__Q__TOKEN__"
         ]
     )
     fun `resolve returns token from powerproxy cookie ignoring case`(cookieName: String) {

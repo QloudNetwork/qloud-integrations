@@ -7,11 +7,11 @@ function powerproxy({secret, credentialsRequired = false}) {
         jwt({
             secret,
             algorithms: ["HS256"],
-            getToken: () => cookies["__pp__token__"],
+            getToken: () => cookies["__q__token__"],
             credentialsRequired,
         })(req, res, (error) => {
             if (error?.name === "UnauthorizedError") {
-                res.redirect(303, "/.pp/login");
+                res.redirect(303, "/.q/login");
             } else {
                 next(error);
             }

@@ -20,25 +20,25 @@ const appRequiringCredentials = createApp({ credentialsRequired: true });
 const appNotRequiringCredentials = createApp({ credentialsRequired: false });
 
 describe("powerproxy-express", () => {
-    it("redirects to /.pp/login if no token is sent and app requires credentials", async () => {
+    it("redirects to /.q/login if no token is sent and app requires credentials", async () => {
         const response = await request(appRequiringCredentials).get("/");
 
         expect(response.statusCode).toBe(303);
-        expect(response.headers["location"]).toEqual("/.pp/login");
+        expect(response.headers["location"]).toEqual("/.q/login");
     });
 
-    it.each([appRequiringCredentials, appNotRequiringCredentials])("redirects to /.pp/login if token is invalid and app requires credentials", async (app) => {
-        const response = await request(app).get("/").set("Cookie", `__pp__token__=invalid-token`);
+    it.each([appRequiringCredentials, appNotRequiringCredentials])("redirects to /.q/login if token is invalid and app requires credentials", async (app) => {
+        const response = await request(app).get("/").set("Cookie", `__q__token__=invalid-token`);
 
         expect(response.statusCode).toBe(303);
-        expect(response.headers["location"]).toEqual("/.pp/login");
+        expect(response.headers["location"]).toEqual("/.q/login");
     });
 
-    it.each([appRequiringCredentials, appNotRequiringCredentials])("redirects to /.pp/login if token has expired", async (app) => {
-        const response = await request(app).get("/").set("Cookie", `__pp__token__=${expiredToken(SECRET)}`);
+    it.each([appRequiringCredentials, appNotRequiringCredentials])("redirects to /.q/login if token has expired", async (app) => {
+        const response = await request(app).get("/").set("Cookie", `__q__token__=${expiredToken(SECRET)}`);
 
         expect(response.statusCode).toBe(303);
-        expect(response.headers["location"]).toEqual("/.pp/login");
+        expect(response.headers["location"]).toEqual("/.q/login");
     });
 
     it("passes request without token through to endpoint if app does not require credentials", async () => {
@@ -48,7 +48,7 @@ describe("powerproxy-express", () => {
     });
 
     it.each([appRequiringCredentials, appNotRequiringCredentials])("passes request through to endpoint if token is valid", async (app) => {
-        const response = await request(app).get("/").set("Cookie", `__pp__token__=${validToken(SECRET)}`);
+        const response = await request(app).get("/").set("Cookie", `__q__token__=${validToken(SECRET)}`);
 
         expect(response.statusCode).toBe(200);
         expect(response.body).toEqual(jwt.decode(validToken(SECRET)));

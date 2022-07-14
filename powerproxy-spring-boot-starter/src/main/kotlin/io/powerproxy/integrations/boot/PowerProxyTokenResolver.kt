@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletRequest
 
 class PowerProxyTokenResolver : BearerTokenResolver {
     private companion object {
-        const val PP_TOKEN_COOKIE = "__pp__token__"
+        const val PP_TOKEN_COOKIE = "__q__token__"
     }
 
     override fun resolve(request: HttpServletRequest?): String? {

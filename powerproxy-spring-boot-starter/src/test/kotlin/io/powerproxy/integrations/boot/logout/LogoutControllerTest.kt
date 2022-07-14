@@ -7,7 +7,7 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 
 class LogoutControllerTest {
     private companion object {
-        const val ISSUER_URI = "https://console.powerproxy.io/.pp"
+        const val ISSUER_URI = "https://console.powerproxy.io/.q"
         const val RETURN_PATH = "/return-path"
         fun jwtToken(issuerUri: String) = JwtAuthenticationToken(
             Jwt.withTokenValue("any-token")
