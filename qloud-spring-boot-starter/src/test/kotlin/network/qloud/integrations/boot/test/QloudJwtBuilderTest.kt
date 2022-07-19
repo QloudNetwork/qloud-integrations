@@ -22,9 +22,9 @@ class QloudJwtBuilderTest {
             softly.assertThat(jwt.subject).isNotBlank
             softly.assertThat(jwt.claims["name"]).isNotNull
             softly.assertThat(jwt.claims["email"]).isNotNull
-            softly.assertThat(jwt.claims["pp:idp"]).isNotNull
-            softly.assertThat(jwt.claims["pp:idp-sub"]).isNotNull
-            softly.assertThat(jwt.claims["pp:udb"]).isNotNull
+            softly.assertThat(jwt.claims["q:idp"]).isNotNull
+            softly.assertThat(jwt.claims["q:idp-sub"]).isNotNull
+            softly.assertThat(jwt.claims["q:udb"]).isNotNull
         }
     }
 
@@ -43,9 +43,9 @@ class QloudJwtBuilderTest {
             softly.assertThat(jwt.subject).isEqualTo(SUBJECT)
             softly.assertThat(jwt.claims["name"]).isEqualTo(NAME)
             softly.assertThat(jwt.claims["email"]).isEqualTo(EMAIL)
-            softly.assertThat(jwt.claims["pp:idp"]).isEqualTo(IDENTITY_PROVIDER)
-            softly.assertThat(jwt.claims["pp:idp-sub"]).isEqualTo(IDENTITY_PROVIDER_SUBJECT)
-            softly.assertThat(jwt.claims["pp:udb"]).isEqualTo(USER_DATABASE)
+            softly.assertThat(jwt.claims["q:idp"]).isEqualTo(IDENTITY_PROVIDER)
+            softly.assertThat(jwt.claims["q:idp-sub"]).isEqualTo(IDENTITY_PROVIDER_SUBJECT)
+            softly.assertThat(jwt.claims["q:udb"]).isEqualTo(USER_DATABASE)
         }
     }
 }

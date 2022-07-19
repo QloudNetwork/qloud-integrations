@@ -20,9 +20,9 @@ class JwtQloudUserTest {
                 "sub" to SUBJECT,
                 "name" to NAME,
                 "email" to EMAIL,
-                "pp:idp" to IDENTITY_PROVIDER,
-                "pp:idp-sub" to IDENTITY_PROVIDER_SUBJECT,
-                "pp:udb" to USER_DATABASE,
+                "q:idp" to IDENTITY_PROVIDER,
+                "q:idp-sub" to IDENTITY_PROVIDER_SUBJECT,
+                "q:udb" to USER_DATABASE,
             )
         )
 

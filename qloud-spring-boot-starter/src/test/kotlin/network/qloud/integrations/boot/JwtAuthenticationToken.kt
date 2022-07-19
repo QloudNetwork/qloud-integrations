@@ -12,9 +12,9 @@ val CLAIMS = mapOf(
     "sub" to "subject",
     "name" to "name",
     "email" to "email@domain.com",
-    "pp:idp" to "google",
-    "pp:idp-sub" to "123456",
-    "pp:udb" to "0c955b26-0586-49d2-b3f2-8149e6d2c8c4",
+    "q:idp" to "google",
+    "q:idp-sub" to "123456",
+    "q:udb" to "0c955b26-0586-49d2-b3f2-8149e6d2c8c4",
 )
 
 fun jwtAuthenticationToken(claims: Map<String, Any> = CLAIMS): JwtAuthenticationToken = JwtAuthenticationToken(

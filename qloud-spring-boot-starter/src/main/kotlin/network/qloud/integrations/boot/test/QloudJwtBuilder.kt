@@ -51,8 +51,8 @@ class QloudJwtBuilder(
         .subject(subject)
         .claim("name", name)
         .claim("email", email)
-        .claim("pp:idp", identityProvider)
-        .claim("pp:idp-sub", identityProviderSubject)
-        .claim("pp:udb", userDatabase)
+        .claim("q:idp", identityProvider)
+        .claim("q:idp-sub", identityProviderSubject)
+        .claim("q:udb", userDatabase)
         .build()
 }

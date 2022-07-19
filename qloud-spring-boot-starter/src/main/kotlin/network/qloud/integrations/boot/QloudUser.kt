@@ -15,7 +15,7 @@ internal class JwtQloudUser(authentication: JwtAuthenticationToken) : QloudUser 
     override val subject = authentication.token.claims["sub"] as String
     override val name = authentication.token.claims["name"] as String
     override val email = authentication.token.claims["email"] as String?
-    override val identityProvider = authentication.token.claims["pp:idp"] as String
-    override val identityProviderSubject: String = authentication.token.claims["pp:idp-sub"] as String
-    override val userDatabase: String = authentication.token.claims["pp:udb"] as String
+    override val identityProvider = authentication.token.claims["q:idp"] as String
+    override val identityProviderSubject: String = authentication.token.claims["q:idp-sub"] as String
+    override val userDatabase: String = authentication.token.claims["q:udb"] as String
 }
