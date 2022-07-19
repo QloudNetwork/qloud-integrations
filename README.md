@@ -1,3 +1,3 @@
-# PowerProxy Integrations
+# Qloud Integrations
 
-Collection of libraries to integrate PowerProxy with different web frameworks.
+Collection of libraries to integrate Qloud with different web frameworks.
