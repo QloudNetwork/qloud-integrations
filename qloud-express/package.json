@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/SemanticlabsGmbH/powerproxy-integrations.git"
+    "url": "https://github.com/SemanticlabsGmbH/qloud-integrations.git"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -23,9 +23,9 @@
   "author": "Semanticlabs GmbH",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/SemanticlabsGmbH/powerproxy-integrations/issues"
+    "url": "https://github.com/SemanticlabsGmbH/qloud-integrations/issues"
   },
-  "homepage": "https://github.com/SemanticlabsGmbH/powerproxy-integrations#readme",
+  "homepage": "https://github.com/SemanticlabsGmbH/qloud-integrations#readme",
   "dependencies": {
     "cookie": "^0.5.0",
     "express-jwt": "^7.7.5",

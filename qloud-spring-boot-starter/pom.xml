@@ -164,7 +164,7 @@
         <repository>
             <id>github</id>
             <name>Qloud Integration Packages</name>
-            <url>https://maven.pkg.github.com/semanticlabsgmbh/powerproxy-integrations</url>
+            <url>https://maven.pkg.github.com/semanticlabsgmbh/qloud-integrations</url>
         </repository>
     </distributionManagement>
 </project>
