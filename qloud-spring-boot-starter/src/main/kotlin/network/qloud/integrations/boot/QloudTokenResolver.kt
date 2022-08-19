@@ -5,10 +5,10 @@ import javax.servlet.http.HttpServletRequest
 
 class QloudTokenResolver : BearerTokenResolver {
     private companion object {
-        const val PP_TOKEN_COOKIE = "__q__token__"
+        const val QLOUD_TOKEN_COOKIE = "__q__token__"
     }
 
     override fun resolve(request: HttpServletRequest?): String? {
-        return request?.cookies?.find { it.name.equals(PP_TOKEN_COOKIE, ignoreCase = true) }?.value
+        return request?.cookies?.find { it.name.equals(QLOUD_TOKEN_COOKIE, ignoreCase = true) }?.value
     }
 }
