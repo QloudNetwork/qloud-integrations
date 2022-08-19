@@ -1,7 +1,13 @@
 package network.qloud.integrations.boot.test
 
+import com.nimbusds.jose.crypto.MACVerifier
+import com.nimbusds.jwt.SignedJWT
+import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.SoftAssertions.assertSoftly
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.ValueSource
 
 class QloudJwtBuilderTest {
     private companion object {
@@ -11,6 +17,7 @@ class QloudJwtBuilderTest {
         const val IDENTITY_PROVIDER = "google"
         const val IDENTITY_PROVIDER_SUBJECT = "123"
         const val USER_DATABASE = "user-database"
+        val SECRET = ByteArray(32)
     }
 
     @Test
@@ -47,5 +54,22 @@ class QloudJwtBuilderTest {
             softly.assertThat(jwt.claims["q:idp-sub"]).isEqualTo(IDENTITY_PROVIDER_SUBJECT)
             softly.assertThat(jwt.claims["q:udb"]).isEqualTo(USER_DATABASE)
         }
+    }
+
+    @Test
+    fun `build returns JWT signed with given secret`() {
+        val jwt = QloudJwtBuilder().build(secret = SECRET)
+
+        val signedJwt = SignedJWT.parse(jwt.tokenValue)
+        assertThat(signedJwt.verify(MACVerifier(SECRET))).isTrue
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = [31, 33])
+    fun `build throws IllegalArgumentException if given secret does not consist of exactly 32 bytes`(byteSize: Int) {
+        val exception = assertThrows<IllegalArgumentException> { QloudJwtBuilder().build(secret = ByteArray(byteSize)) }
+
+        assertThat(exception).isNotNull
+        assertThat(exception.message).isEqualTo("secret must consist of exactly 32 bytes")
     }
 }

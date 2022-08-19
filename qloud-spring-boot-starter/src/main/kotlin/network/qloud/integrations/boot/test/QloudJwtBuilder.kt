@@ -1,5 +1,10 @@
 package network.qloud.integrations.boot.test
 
+import com.nimbusds.jose.JWSAlgorithm.HS256
+import com.nimbusds.jose.JWSHeader
+import com.nimbusds.jose.crypto.MACSigner
+import com.nimbusds.jwt.JWTClaimsSet
+import com.nimbusds.jwt.SignedJWT
 import org.springframework.security.oauth2.jwt.Jwt
 import java.util.*
 
@@ -16,6 +21,10 @@ class QloudJwtBuilder(
     private var identityProviderSubject: String = "123",
     private var userDatabase: String = UUID.randomUUID().toString()
 ) {
+    private companion object {
+        val DEFAULT_SECRET = "qsecretqsecretqsecretqsecretqsec".toByteArray()
+    }
+
     fun subject(subject: String): QloudJwtBuilder {
         this.subject = subject
         return this
@@ -46,13 +55,21 @@ class QloudJwtBuilder(
         return this
     }
 
-    fun build(): Jwt = Jwt.withTokenValue("token")
-        .header("alg", "HS256")
-        .subject(subject)
-        .claim("name", name)
-        .claim("email", email)
-        .claim("q:idp", identityProvider)
-        .claim("q:idp-sub", identityProviderSubject)
-        .claim("q:udb", userDatabase)
-        .build()
+    fun build(secret: ByteArray = DEFAULT_SECRET): Jwt {
+        require(secret.size == 32) { "secret must consist of exactly 32 bytes" }
+
+        val claimSet = JWTClaimsSet.Builder()
+            .subject(subject)
+            .claim("name", name)
+            .claim("email", email)
+            .claim("q:idp", identityProvider)
+            .claim("q:idp-sub", identityProviderSubject)
+            .claim("q:udb", userDatabase)
+            .build()
+        val signedJwt = SignedJWT(JWSHeader(HS256), claimSet).apply { sign(MACSigner(secret)) }
+        return Jwt.withTokenValue(signedJwt.serialize())
+            .header("alg", "HS256")
+            .claims { claims -> claims.putAll(claimSet.claims) }
+            .build()
+    }
 }
