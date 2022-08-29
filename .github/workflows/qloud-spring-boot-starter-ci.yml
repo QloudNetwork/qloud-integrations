@@ -3,8 +3,6 @@ name: Qloud Spring Boot Starter with Maven
 # Build on every branch, but only if the files we care about have changed
 on:
   push:
-    branches:
-      - "*"
     paths:
       - "qloud-spring-boot-starter/**"
       - ".github/workflows/qloud-spring-boot-starter-ci.yml"

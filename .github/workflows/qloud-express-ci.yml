@@ -3,8 +3,6 @@ name: Qloud Express CI
 # Build on every branch, but only if the files we care about have changed
 on:
   push:
-    branches:
-      - "*"
     paths:
       - "qloud-express/**"
       - ".github/workflows/qloud-express-ci.yml"
