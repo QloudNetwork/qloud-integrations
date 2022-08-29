@@ -10,7 +10,14 @@ import java.util.concurrent.CompletableFuture
 
 class WebClientQloudApi(builder: WebClient.Builder, baseUrl: String, secret: String) : QloudApi {
     private val webClient: WebClient = builder.baseUrl(baseUrl)
-        .clientConnector(ReactorClientHttpConnector(HttpClient.create().compress(true).followRedirect(true)))
+        .clientConnector(
+            ReactorClientHttpConnector(
+                HttpClient.create()
+                    .compress(true)
+                    // follow redirects, so we also support qloud.space subdomains if the application uses a custom domain
+                    .followRedirect(true)
+            )
+        )
         .defaultHeader(AUTHORIZATION, secret)
         .build()
 
