@@ -1,5 +1,7 @@
 package network.qloud.integrations.boot
 
+import network.qloud.integrations.boot.api.QloudApi
+import network.qloud.integrations.boot.api.WebClientQloudApi
 import network.qloud.integrations.boot.logout.LogoutController
 import org.springframework.boot.autoconfigure.AutoConfigureBefore
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression
@@ -22,24 +24,23 @@ import org.springframework.security.oauth2.jwt.NimbusJwtDecoder
 import org.springframework.security.oauth2.server.resource.web.BearerTokenResolver
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.web.method.support.HandlerMethodArgumentResolver
+import org.springframework.web.reactive.function.client.WebClient
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 import java.time.Duration
-import javax.crypto.SecretKey
 import javax.crypto.spec.SecretKeySpec
 
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnProperty("qloud.secret")
 @AutoConfigureBefore(OAuth2ResourceServerAutoConfiguration::class)
 @EnableConfigurationProperties(QloudProperties::class)
-class QloudAutoConfiguration(qloudProperties: QloudProperties) {
-    private val secretKey: SecretKey = SecretKeySpec(qloudProperties.secret.toByteArray(), "AES")
-    private val clockSkewSeconds: Long = qloudProperties.clockSkewSeconds
-
+class QloudAutoConfiguration(private val properties: QloudProperties) {
     @Bean
     fun jwtDecoder(): JwtDecoder =
-        NimbusJwtDecoder.withSecretKey(secretKey).macAlgorithm(HS256).build().apply {
-            setJwtValidator(JwtTimestampValidator(Duration.ofSeconds(clockSkewSeconds)))
-        }
+        NimbusJwtDecoder.withSecretKey(SecretKeySpec(properties.secret.toByteArray(), "AES"))
+            .macAlgorithm(HS256)
+            .build().apply {
+                setJwtValidator(JwtTimestampValidator(Duration.ofSeconds(properties.clockSkewSeconds)))
+            }
 
     @Bean
     fun bearerTokenResolver(): BearerTokenResolver = QloudTokenResolver()
@@ -47,6 +48,11 @@ class QloudAutoConfiguration(qloudProperties: QloudProperties) {
     @Bean
     @ConditionalOnExpression("not '\${qloud.logout-path:}'.isBlank()")
     fun logoutController(): LogoutController = LogoutController()
+
+    @Bean
+    @ConditionalOnExpression("not '\${qloud.domain:}'.isBlank()")
+    fun qloudApi(builder: WebClient.Builder): QloudApi =
+        WebClientQloudApi(builder, "https://${properties.domain}/.q/api/management", properties.secret)
 
     @Configuration
     class QloudWebMvcConfiguration : WebMvcConfigurer {
@@ -72,6 +78,10 @@ class QloudAutoConfiguration(qloudProperties: QloudProperties) {
 @ConstructorBinding
 @ConfigurationProperties(prefix = "qloud")
 data class QloudProperties(
+    /**
+     * Application domain (e.g. my-app.qloud.space)
+     */
+    val domain: String?,
     /**
      * Secret used to verify JWT token signature.
      */
