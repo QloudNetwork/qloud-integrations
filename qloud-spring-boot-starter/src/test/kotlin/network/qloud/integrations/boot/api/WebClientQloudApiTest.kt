@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.http.HttpHeaders.AUTHORIZATION
 import org.springframework.http.HttpHeaders.CONTENT_TYPE
 import org.springframework.http.MediaType.APPLICATION_JSON_VALUE
-import org.springframework.web.reactive.function.client.WebClient
+import org.springframework.http.client.reactive.ReactorClientHttpConnector
 
 @WireMockTest
 class WebClientQloudApiTest {
@@ -23,10 +23,11 @@ class WebClientQloudApiTest {
     }
 
     private val objectMapper = jacksonObjectMapper().registerModule(JavaTimeModule())
+    private val connector = ReactorClientHttpConnector()
 
     @Test
     fun `getUser returns user from Authenticator Management API`(wireMockInfo: WireMockRuntimeInfo) {
-        val api = WebClientQloudApi(WebClient.builder(), wireMockInfo.httpBaseUrl, SECRET)
+        val api = WebClientQloudApi(connector, wireMockInfo.httpBaseUrl, SECRET)
         stubFor(
             get(userUrl(USER_ID)).willReturn(
                 ok().withHeader(CONTENT_TYPE, APPLICATION_JSON_VALUE)
@@ -41,7 +42,7 @@ class WebClientQloudApiTest {
 
     @Test
     fun `deleteUser calls DELETE user endpoint on Authenticator Management API`(wireMockInfo: WireMockRuntimeInfo) {
-        val api = WebClientQloudApi(WebClient.builder(), wireMockInfo.httpBaseUrl, SECRET)
+        val api = WebClientQloudApi(connector, wireMockInfo.httpBaseUrl, SECRET)
         stubFor(delete(userUrl(USER_ID)).willReturn(noContent()))
 
         api.deleteUser(USER_ID).get()

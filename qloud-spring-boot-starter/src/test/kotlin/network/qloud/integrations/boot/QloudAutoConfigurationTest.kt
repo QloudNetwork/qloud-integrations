@@ -7,6 +7,9 @@ import org.springframework.boot.autoconfigure.AutoConfigurations
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
 import org.springframework.boot.autoconfigure.web.reactive.function.client.WebClientAutoConfiguration
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner
+import org.springframework.http.client.reactive.ClientHttpConnector
+import org.springframework.http.client.reactive.HttpComponentsClientHttpConnector
+import org.springframework.http.client.reactive.ReactorClientHttpConnector
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration
 import org.springframework.security.oauth2.jwt.JwtDecoder
 import org.springframework.security.oauth2.server.resource.web.BearerTokenResolver
@@ -50,5 +53,26 @@ class QloudAutoConfigurationTest {
         contextRunner.withPropertyValues("qloud.secret=secret", "qloud.domain=").run { context ->
             assertThat(context).doesNotHaveBean(QloudApi::class.java)
         }
+    }
+
+    @Test
+    fun `creates ReactClientHttpConnector if no bean named qloudApiHttpConnector exists`() {
+        contextRunner.withPropertyValues("qloud.secret=secret").run { context ->
+            assertThat(context)
+                .getBean("qloudApiHttpConnector")
+                .isInstanceOf(ReactorClientHttpConnector::class.java)
+        }
+    }
+
+    @Test
+    fun `allows overriding of qloudApiHttpConnector`() {
+        contextRunner
+            .withPropertyValues("qloud.secret=secret")
+            .withBean("qloudApiHttpConnector", ClientHttpConnector::class.java, { HttpComponentsClientHttpConnector() })
+            .run { context ->
+                assertThat(context)
+                    .getBean("qloudApiHttpConnector")
+                    .isInstanceOf(HttpComponentsClientHttpConnector::class.java)
+            }
     }
 }
