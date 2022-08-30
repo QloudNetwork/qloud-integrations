@@ -3,17 +3,21 @@ package network.qloud.integrations.boot
 import network.qloud.integrations.boot.api.QloudApi
 import network.qloud.integrations.boot.api.WebClientQloudApi
 import network.qloud.integrations.boot.logout.LogoutController
-import org.springframework.boot.autoconfigure.AutoConfigureBefore
+import org.springframework.boot.autoconfigure.AutoConfiguration
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.boot.autoconfigure.security.oauth2.resource.servlet.OAuth2ResourceServerAutoConfiguration
+import org.springframework.boot.autoconfigure.web.reactive.function.client.WebClientAutoConfiguration
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.ConstructorBinding
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.context.properties.bind.DefaultValue
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.Lazy
+import org.springframework.http.client.reactive.ClientHttpConnector
+import org.springframework.http.client.reactive.ReactorClientHttpConnector
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.config.http.SessionCreationPolicy.STATELESS
@@ -24,14 +28,16 @@ import org.springframework.security.oauth2.jwt.NimbusJwtDecoder
 import org.springframework.security.oauth2.server.resource.web.BearerTokenResolver
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.web.method.support.HandlerMethodArgumentResolver
-import org.springframework.web.reactive.function.client.WebClient
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
+import reactor.netty.http.client.HttpClient
 import java.time.Duration
 import javax.crypto.spec.SecretKeySpec
 
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration(
+    before = [OAuth2ResourceServerAutoConfiguration::class],
+    after = [WebClientAutoConfiguration::class]
+)
 @ConditionalOnProperty("qloud.secret")
-@AutoConfigureBefore(OAuth2ResourceServerAutoConfiguration::class)
 @EnableConfigurationProperties(QloudProperties::class)
 class QloudAutoConfiguration(private val properties: QloudProperties) {
     @Bean
@@ -50,9 +56,19 @@ class QloudAutoConfiguration(private val properties: QloudProperties) {
     fun logoutController(): LogoutController = LogoutController()
 
     @Bean
+    @Lazy
+    @ConditionalOnMissingBean(name = ["qloudApiHttpConnector"])
+    fun qloudApiHttpConnector(): ClientHttpConnector = ReactorClientHttpConnector(
+        HttpClient.create()
+            .compress(true)
+            // follow redirects, so we also support qloud.space subdomains if the application uses a custom domain
+            .followRedirect(true)
+    )
+
+    @Bean
     @ConditionalOnExpression("not '\${qloud.domain:}'.isBlank()")
-    fun qloudApi(builder: WebClient.Builder): QloudApi =
-        WebClientQloudApi(builder, "https://${properties.domain}/.q/api/management", properties.secret)
+    fun qloudApi(connector: ClientHttpConnector): QloudApi =
+        WebClientQloudApi(connector, "https://${properties.domain}/.q/api/management", properties.secret)
 
     @Configuration
     class QloudWebMvcConfiguration : WebMvcConfigurer {

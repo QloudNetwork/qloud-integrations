@@ -2,22 +2,14 @@ package network.qloud.integrations.boot.api
 
 import network.qloud.integrations.boot.api.dto.QloudApiUser
 import org.springframework.http.HttpHeaders.AUTHORIZATION
-import org.springframework.http.client.reactive.ReactorClientHttpConnector
+import org.springframework.http.client.reactive.ClientHttpConnector
 import org.springframework.web.reactive.function.client.WebClient
 import org.springframework.web.reactive.function.client.bodyToMono
-import reactor.netty.http.client.HttpClient
 import java.util.concurrent.CompletableFuture
 
-class WebClientQloudApi(builder: WebClient.Builder, baseUrl: String, secret: String) : QloudApi {
-    private val webClient: WebClient = builder.baseUrl(baseUrl)
-        .clientConnector(
-            ReactorClientHttpConnector(
-                HttpClient.create()
-                    .compress(true)
-                    // follow redirects, so we also support qloud.space subdomains if the application uses a custom domain
-                    .followRedirect(true)
-            )
-        )
+class WebClientQloudApi(clientConnector: ClientHttpConnector, baseUrl: String, secret: String) : QloudApi {
+    private val webClient: WebClient = WebClient.builder().baseUrl(baseUrl)
+        .clientConnector(clientConnector)
         .defaultHeader(AUTHORIZATION, secret)
         .build()
 
