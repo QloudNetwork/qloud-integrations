@@ -6,7 +6,7 @@ import java.util.concurrent.CompletableFuture
 
 class StubbedQloudApi : QloudApi {
     override fun getUser(id: String): CompletableFuture<QloudApiUser> {
-        return CompletableFuture.completedFuture(qloudApiUser())
+        return CompletableFuture.completedFuture(qloudApiUser(id = id))
     }
 
     override fun deleteUser(id: String): CompletableFuture<Void> {
