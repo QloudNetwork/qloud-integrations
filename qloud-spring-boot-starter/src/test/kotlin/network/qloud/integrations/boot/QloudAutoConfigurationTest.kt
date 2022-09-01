@@ -1,6 +1,8 @@
 package network.qloud.integrations.boot
 
+import com.google.common.collect.Maps.immutableEntry
 import network.qloud.integrations.boot.api.QloudApi
+import network.qloud.integrations.boot.api.StubbedQloudApi
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.boot.autoconfigure.AutoConfigurations
@@ -53,6 +55,18 @@ class QloudAutoConfigurationTest {
         contextRunner.withPropertyValues("qloud.secret=secret", "qloud.domain=").run { context ->
             assertThat(context).doesNotHaveBean(QloudApi::class.java)
         }
+    }
+
+    @Test
+    fun `allows overriding QloudApi bean`() {
+        val customQloudApi = StubbedQloudApi()
+
+        contextRunner
+            .withPropertyValues("qloud.secret=secret", "qloud.domain=domain")
+            .withBean("customQloudApi", QloudApi::class.java, { customQloudApi }).run { context ->
+                assertThat(context).getBeans(QloudApi::class.java)
+                    .containsOnly(immutableEntry("customQloudApi", customQloudApi))
+            }
     }
 
     @Test

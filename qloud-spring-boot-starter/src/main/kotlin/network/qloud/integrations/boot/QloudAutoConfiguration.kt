@@ -66,6 +66,7 @@ class QloudAutoConfiguration(private val properties: QloudProperties) {
     )
 
     @Bean
+    @ConditionalOnMissingBean
     @ConditionalOnExpression("not '\${qloud.domain:}'.isBlank()")
     fun qloudApi(connector: ClientHttpConnector): QloudApi =
         WebClientQloudApi(connector, "https://${properties.domain}/.q/api/management", properties.secret)
