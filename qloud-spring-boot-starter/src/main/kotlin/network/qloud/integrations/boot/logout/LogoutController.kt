@@ -2,8 +2,9 @@ package network.qloud.integrations.boot.logout
 
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken
 import org.springframework.stereotype.Controller
-import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestMethod.GET
+import org.springframework.web.bind.annotation.RequestMethod.POST
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.util.UriComponentsBuilder
 
@@ -15,7 +16,7 @@ class LogoutController {
         const val QLOUD_RETURN_PATH_PARAM = "return_path"
     }
 
-    @GetMapping
+    @RequestMapping(method = [GET, POST])
     fun logout(
         authentication: JwtAuthenticationToken,
         @RequestParam("return_path") returnPath: String?
