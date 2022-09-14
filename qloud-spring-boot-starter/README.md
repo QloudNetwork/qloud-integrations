@@ -26,6 +26,16 @@ Your application will then receive an authenticated request.
 See [Spring Security Integrations](https://docs.spring.io/spring-security/site/docs/current/reference/html5/#integrations)
 .
 
+If you are using Spring Web MVC, you can inject a `QloudUser` into your handler methods to get access to the user data
+from the JWT token.
+
+```kotlin
+@GetMapping("/user")
+fun getUser(user: QloudUser): QloudUser {
+    return user
+}
+```
+
 ## Logout Controller
 
 There is an optional logout controller that will delete the JWT token cookie and redirect the user agent to the
@@ -47,6 +57,6 @@ The starter also makes it easy to access Qloud's Managemnet API from your applic
 qloud.domain=your-subdomain.qloud.space
 ```
 
-The auto configuration will then add
+The autoconfiguration will then add
 a [QloudApi](https://github.com/SemanticlabsGmbH/qloud-integrations/blob/main/qloud-spring-boot-starter/src/main/kotlin/network/qloud/integrations/boot/api/QloudApi.kt)
 bean for you to inject exposing the API's operations .
