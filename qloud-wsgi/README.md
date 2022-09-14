@@ -16,14 +16,17 @@ Note, we currently only support Python 3.7 and above.
 ### Flask
 
 ```python
-from flask import Flask
+from flask import Flask, request
 import qloud
 
 SECRET = "YOUR_SECRET"
 
 app = Flask(__name__)
-app.wsgi_app = qloud.QloudAuthentication(app.wsgi_app, SECRET, credentials_required=True)
-#...
+app.wsgi_app = qloud.QloudAuthentication(app.wsgi_app, SECRET, credentials_required=False)
+
+@app.route("/")
+def hello_user():
+    return request.environ.get("auth") or "Hello Anonymous!"
 ```
 
 The `SECRET` is the secret key that you can find in the [Qloud Console Dashboard](https://console.qloud.network),
