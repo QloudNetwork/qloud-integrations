@@ -1,0 +1,24 @@
+name: Qloud WSGI CI
+
+# Build on every branch, but only if the files we care about have changed
+on:
+  push:
+    paths:
+      - "qloud-wsgi/**"
+      - ".github/workflows/qloud-wsgi-ci.yml"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: pdm-project/setup-pdm@main
+        name: Setup PDM
+        with:
+          python-version: 3.7
+      - name: Install dependencies
+        run: pdm install
+        working-directory: qloud-wsgi
+      - name: Run tests
+        run: pdm run test
+        working-directory: qloud-wsgi
