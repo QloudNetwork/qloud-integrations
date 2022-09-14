@@ -35,8 +35,8 @@ build-backend = "pdm.pep517.api"
 [tool]
 [tool.pdm]
 [tool.pdm.scripts]
-format = "black src/"
-test = "pytest tests/"
+format = "black ."
+test = "pytest"
 
 [tool.pdm.dev-dependencies]
 style = [

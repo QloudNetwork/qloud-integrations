@@ -40,7 +40,9 @@ def ok():
 @pytest.fixture()
 def app_mandatory_auth():
     app = Flask(__name__)
-    app.wsgi_app = qloud.QloudAuthentication(app.wsgi_app, SECRET, credentials_required=True)
+    app.wsgi_app = qloud.QloudAuthentication(
+        app.wsgi_app, SECRET, credentials_required=True
+    )
     app.register_blueprint(bp)
     return app
 
@@ -48,7 +50,9 @@ def app_mandatory_auth():
 @pytest.fixture()
 def app_optional_auth():
     app = Flask(__name__)
-    app.wsgi_app = qloud.QloudAuthentication(app.wsgi_app, SECRET, credentials_required=False)
+    app.wsgi_app = qloud.QloudAuthentication(
+        app.wsgi_app, SECRET, credentials_required=False
+    )
     app.register_blueprint(bp)
     return app
 
