@@ -13,7 +13,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring-boot.version>2.7.3</spring-boot.version>
         <kotlin.version>1.7.10</kotlin.version>
-        <mockk.version>1.12.8</mockk.version>
+        <mockk.version>1.12.3</mockk.version>
         <wiremock.version>2.33.2</wiremock.version>
         <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
