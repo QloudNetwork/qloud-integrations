@@ -16,8 +16,8 @@ jobs:
         name: Setup PDM
         with:
           python-version: 3.7
-      - name: Install dependencies
-        run: pdm install
+      - name: Install dependencies from lockfile
+        run: pdm sync
         working-directory: qloud-wsgi
       - name: Run tests
         run: pdm run test
