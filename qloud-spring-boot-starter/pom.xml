@@ -28,7 +28,7 @@
 
     <scm>
         <connection>scm:git:git://github.com/QloudNetwork/qloud-integrations.git</connection>
-        <developerConnection>scm:git:ssh://github.com:QloudNetwork/qloud-integrations.git</developerConnection>
+        <developerConnection>scm:git:ssh://git@github.com/QloudNetwork/qloud-integrations.git</developerConnection>
         <url>https://github.com/QloudNetwork/qloud-integrations</url>
     </scm>
 
