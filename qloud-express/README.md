@@ -1,17 +1,17 @@
-# Integration for Express
+# Qloud Integration for Express
 
 [Express](https://expressjs.com/) middleware to use Qloud for authentication.
 
 Install the dependency:
 
 ```shell
-npm install --save @semanticlabsgmbh/qloud-express
+npm install --save @qloud/express
 ```
 
 Add the Qloud middleware to your Express application:
 
 ```javascript
-const qloud = require("qloud-express");
+const qloud = require("@qloud/express");
 
 app.use(qloud({secret: "insert-qloud-secret-here"}));
 ```
@@ -40,7 +40,7 @@ This option is set to `false` by default to support applications with optional a
 
 ```javascript
 const express = require("express");
-const qloud = require("@semanticlabsgmbh/qloud-express");
+const qloud = require("@qloud/express");
 
 const port = process.env.PORT || 3000;
 const app = express();
