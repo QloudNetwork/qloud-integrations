@@ -7,6 +7,30 @@
     <version>0.1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>Qloud Spring Boot Starter</name>
+    <description>Qloud Spring Boot Starter to easily integrate Qloud authentication with Spring Boot projects</description>
+    <url>https://github.com/QloudNetwork/qloud-integrations</url>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://github.com/QloudNetwork/qloud-integrations/blob/main/qloud-spring-boot-starter/LICENSE</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Qloud Development Team</name>
+            <email>dev@qloud.network</email>
+            <organization>Semanticlabs GmbH</organization>
+            <organizationUrl>https://www.semanticlabs.at</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/QloudNetwork/qloud-integrations.git</connection>
+        <developerConnection>scm:git:ssh://github.com:QloudNetwork/qloud-integrations.git</developerConnection>
+        <url>https://github.com/QloudNetwork/qloud-integrations</url>
+    </scm>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -180,12 +204,4 @@
             </plugin>
         </plugins>
     </build>
-
-    <distributionManagement>
-        <repository>
-            <id>github</id>
-            <name>Qloud Integration Packages</name>
-            <url>https://maven.pkg.github.com/semanticlabsgmbh/qloud-integrations</url>
-        </repository>
-    </distributionManagement>
 </project>
