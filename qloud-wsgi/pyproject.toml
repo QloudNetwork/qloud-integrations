@@ -23,8 +23,8 @@ classifiers = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/SemanticlabsGmbH/qloud-integrations"
-"Bug Tracker" = "https://github.com/SemanticlabsGmbH/qloud-integrations/issues"
+"Homepage" = "https://github.com/QloudNetwork/qloud-integrations"
+"Bug Tracker" = "https://github.com/QloudNetwork/qloud-integrations/issues"
 
 [project.optional-dependencies]
 
