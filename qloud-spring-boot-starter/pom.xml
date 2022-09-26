@@ -212,6 +212,9 @@
     <profiles>
         <profile>
             <id>release</id>
+            <properties>
+                <gpg.keyname>7DC2BFE57A0EBE6DFF197333DAF4FED955E63B19</gpg.keyname>
+            </properties>
             <build>
                 <plugins>
                     <plugin>
