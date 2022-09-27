@@ -1,6 +1,6 @@
 [project]
 name = "qloud-wsgi"
-version = "0.2.0"
+version = "0.3.0"
 description = "Qloud Integration for WSGI applications"
 authors = [
     {name = "Qloud Development Team", email = "dev@qloud.network"},
@@ -37,6 +37,7 @@ build-backend = "pdm.pep517.api"
 [tool.pdm.scripts]
 format = "black ."
 test = "pytest"
+pypi = "pdm publish -S --identity 7DC2BFE57A0EBE6DFF197333DAF4FED955E63B19"
 
 [tool.pdm.dev-dependencies]
 style = [
