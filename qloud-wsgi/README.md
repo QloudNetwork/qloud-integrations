@@ -1,4 +1,4 @@
-# qloud-wsgi
+# Qloud Integration for WSGI Servers
 
 `qloud-wsgi` is a WSGI middleware compatible with all frameworks that support WSGI, like
 [Flask](https://flask.palletsprojects.com/). It provides a simple way to integrate with [Qloud](https://qloud.network).
@@ -30,14 +30,19 @@ def hello_user():
 ```
 
 The `SECRET` is the secret key that you can find in the [Qloud Console Dashboard](https://console.qloud.network),
-respectively, in the [DevAuth environment](https://docs.qloud.network/local-development/) it's fixed
+respectively, for the [DevAuth environment](https://docs.qloud.network/local-development/) it's fixed
 to `00000000000000000000000000000000`.
-
-The `credentials_required` parameter is optional and defaults to `False`. If set to `True`, the middleware will not
-allow requests without a JSON Web Token to access your application (note, invalid or expired JWT will always be
-rejected!).
 
 The middleware injects the decoded JSON Web Token using the key `auth` into the environment of the request (e.g.
 `environ["auth"]` in plain WSGI, or `request.environ.get("auth")` in a Flask app).
 [Our documentation](https://docs.qloud.network/architecture/jwt) has all the information of the fields present in the
 JWT.
+
+### Credentials Required
+
+The `credentials_required` parameter is optional and defaults to `False`. For requests without a JSON Web Token,
+`environ["auth"]` will not be set.
+
+If your application uses [mandatory authentication](https://docs.qloud.network/configuration/authentication-mode), we
+recommend to set `credentials_required` to `True`, the integration itself will then also reject unauthenticated requests
+if they bypass the Proxy.
