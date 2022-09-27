@@ -33,8 +33,9 @@ The `SECRET` is the secret key that you can find in the [Qloud Console Dashboard
 respectively, in the [DevAuth environment](https://docs.qloud.network/local-development/) it's fixed
 to `00000000000000000000000000000000`.
 
-The `credentials_required` parameter is optional and defaults to `True`. If set to `False`, the middleware will
-allow requests without a JSON Web Token to access your application (note, invalid or expired JWT will be rejected!).
+The `credentials_required` parameter is optional and defaults to `False`. If set to `True`, the middleware will not
+allow requests without a JSON Web Token to access your application (note, invalid or expired JWT will always be
+rejected!).
 
 The middleware injects the decoded JSON Web Token using the key `auth` into the environment of the request (e.g.
 `environ["auth"]` in plain WSGI, or `request.environ.get("auth")` in a Flask app).

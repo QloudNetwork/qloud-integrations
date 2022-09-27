@@ -4,7 +4,7 @@ import jwt
 
 
 class QloudAuthentication:
-    def __init__(self, app, secret, credentials_required=True):
+    def __init__(self, app, secret, credentials_required=False):
         self.app = app
         self.secret = secret
         self.credentialsRequired = credentials_required
