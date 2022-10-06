@@ -5,15 +5,20 @@ Spring Boot auto-configuration that automatically verifies and parses the Qloud 
 
 ## Getting Started
 
-Add the `qloud-spring-boot-starter` as a dependency:
+Add the `qloud-spring-boot-starter` as a dependency to your pom.xml:
 
 ```xml
-
 <dependency>
     <groupId>network.qloud</groupId>
     <artifactId>qloud-spring-boot-starter</artifactId>
-    <version>{version}</version>
+    <version>0.1.0</version>
 </dependency>
+```
+
+Or your gradle.build:
+
+```kotlin
+implementation("network.qloud:qloud-spring-boot-starter:0.1.0")
 ```
 
 Add the secret of your Qloud application to the application properties:
