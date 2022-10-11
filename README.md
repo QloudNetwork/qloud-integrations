@@ -3,7 +3,7 @@
 [Qloud](https://qloud.network) is a proxy based authentication solution. It allows you to easily add various
 authentication options, like email/password login, and social logins like Google, GitHub etc. to your Web application.
 
-This repository contains various integration libraries for Qloud. The libraries check the validity of the JWT token
+This repository contains various integration libraries for Qloud. The libraries check the validity of the JSON Web Token
 sent by the Qloud proxies and offers some options how to deal with missing JWTs.
 
 Please check [our Qloud documentation](https://docs.qloud.network/category/integration-libraries) for more information.

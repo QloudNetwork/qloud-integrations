@@ -1,6 +1,6 @@
 # Integration for Spring Boot / Spring Security
 
-Spring Boot auto-configuration that automatically verifies and parses the Qloud JWT token if the
+Spring Boot auto-configuration that automatically verifies and parses the Qloud JSON Web Token if the
 `qloud.secret` application property is configured.
 
 ## Getting Started
@@ -32,7 +32,7 @@ See [Spring Security Integrations](https://docs.spring.io/spring-security/site/d
 .
 
 If you are using Spring Web MVC, you can inject a `QloudUser` into your handler methods to get access to the user data
-from the JWT token.
+from the JSON Web Token.
 
 ```kotlin
 @GetMapping("/user")
@@ -43,7 +43,7 @@ fun getUser(user: QloudUser): QloudUser {
 
 ## Logout Controller
 
-There is an optional logout controller that will delete the JWT token cookie and redirect the user agent to the
+There is an optional logout controller that will delete the JSON Web Token cookie and redirect the user agent to the
 Qloud login page. It can be enabled by configuring the URL path for this controller:
 
 ```properties

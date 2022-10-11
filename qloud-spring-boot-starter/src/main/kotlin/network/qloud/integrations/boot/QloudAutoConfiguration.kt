@@ -100,7 +100,7 @@ data class QloudProperties(
      */
     val domain: String?,
     /**
-     * Secret used to verify JWT token signature.
+     * Secret used to verify JWT signature.
      */
     val secret: String,
     /**
@@ -110,7 +110,7 @@ data class QloudProperties(
      */
     val logoutPath: String?,
     /**
-     * Offset in number of seconds to tolerate when validating JWT token timestamps.
+     * Offset in number of seconds to tolerate when validating JWT timestamps.
      *
      * Useful if the clock of the application server is not in sync with the clock of Qloud's authentication server.
      */

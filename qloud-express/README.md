@@ -20,7 +20,7 @@ The `secret` is the secret key that you can find in the [Qloud Console Dashboard
 respectively, in the [DevAuth environment](https://docs.qloud.network/local-development/) it's fixed
 to `00000000000000000000000000000000`.
 
-If the user is authenticated, the data from the [JWT token](https://docs.qloud.network/architecture/jwt) will be
+If the user is authenticated, the data from the [JSON Web Token](https://docs.qloud.network/architecture/jwt) will be
 available in the `auth` property of the request:
 
 ```javascript
