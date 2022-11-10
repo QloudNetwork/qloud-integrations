@@ -1,0 +1,35 @@
+name: Qloud Next.js CI
+
+# Build on every branch, but only if the files we care about have changed
+on:
+  push:
+    paths:
+      - "qloud-next/**"
+      - ".github/workflows/qloud-next-ci.yml"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      - name: "qloud-next: npm install"
+        run: npm install
+        working-directory: qloud-next
+      - name: "qloud-next-example: npm install"
+        run: npm install
+        working-directory: qloud-next/example
+      - name: "qloud-next: npm run lint"
+        run: npm run lint
+        working-directory: qloud-next
+      - name: "qloud-next: npm run test"
+        run: npm run test
+        working-directory: qloud-next
+      - name: "qloud-next: npm run build"
+        run: npm run build
+        working-directory: qloud-next
+      - name: "qloud-next-example: npm build"
+        run: npm run build
+        working-directory: qloud-next/example
