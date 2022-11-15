@@ -1,6 +1,6 @@
 import type { NextApiResponse } from "next";
 import { qloud } from "../../lib/qloud";
-import { NextApiRequestWithAuth } from "qloud-next";
+import { NextApiRequestWithAuth } from "@qloud/next";
 
 export type UserData = {
   email: string;

@@ -25,14 +25,14 @@ This repository contains a minimal [example application](./example/) demonstrati
 
 ## Usage
 
-Instantiate an instance of `NextQloud` by providing the site `secret`:
+Instantiate an instance of `Qloud` by providing the site `secret`:
 
 ```typescript
-import { Qloud } from "qloud-next";
+import { Qloud } from "@qloud/next";
 
 const DEVELOPMENT_SECRET = "00000000000000000000000000000000";
 const SECRET = process.env.QLOUD_SECRET || DEVELOPMENT_SECRET;
-const nextQloud = new Qloud({secret: SECRET});
+const qloud = new Qloud({secret: SECRET});
 ```
 
 The development secret is supposed to be used for local development with https://login.loqal.host. In a production
@@ -49,7 +49,7 @@ The middleware also registers a `logoutUrlPath` (by default `/logout`). You can 
 user. It takes care for you to redirect to https://login.loqal.host for local development.
 
 ```typescript
-export const middleware = nextQloud.middleware({authRequired: true, logoutUrlPath: "/logout"});
+export const middleware = qloud.middleware({authRequired: true, logoutUrlPath: "/logout"});
 
 export const config = {
   // It might make sense to exclude certain URL paths.
@@ -68,7 +68,7 @@ function handler(req: NextApiRequestWithAuth, res: NextApiResponse<UserData>) {
   res.status(200).json({email: req.auth})
 }
 
-export default nextQloud.apiRoute(handler, {authRequired: true});
+export default qloud.apiRoute(handler, {authRequired: true});
 ```
 
 If `authRequired` is set to `true`, the API will return 401 with `{ message: "Unauthorized }` as the response body for
@@ -80,7 +80,7 @@ For server-side rendering, you can use qloud-next's `getServerSideProps` helper 
 an `auth` prop that is either the `QloudToken` if the request has a valid token or null otherwise.
 
 ```typescript jsx
-import { QloudToken } from 'qloud-next';
+import { QloudToken } from '@qloud/next';
 
 const Home: NextPage = function Home({auth}: { auth: QloudToken | null }) {
   const token = JSON.stringify(auth);
@@ -90,7 +90,7 @@ const Home: NextPage = function Home({auth}: { auth: QloudToken | null }) {
 }
 
 export const getServerSideProps: GetServerSideProps<HomeProps> = async (context) => {
-  return nextQloud.getServerSideProps(context)
+  return qloud.getServerSideProps(context)
 }
 ```
 
@@ -100,5 +100,5 @@ If you only want to verify the token yourself without using any of the helper fu
 call `verifyJwt` with the serialized JWT token:
 
 ```typescript
-const token: QloudToken | null = await nextQloud.verifyToken("<token>");
+const token: QloudToken | null = await qloud.verifyToken("<token>");
 ```
