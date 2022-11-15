@@ -63,8 +63,8 @@ export const config = {
 
 ### API routes
 
-Wrap your API route handlers with qloud-next's `apiRoute` function. You can then access the content of the JWT token via
-the `auth` property on the request:
+Wrap your API route handlers with qloud-next's `apiRoute` function. You can then access the content of the JSON Web
+Token (JWT) via the `auth` property on the request:
 
 ```typescript
 function handler(req: NextApiRequestWithAuth, res: NextApiResponse<UserData>) {
