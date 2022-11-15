@@ -1,6 +1,6 @@
-import { LOGOUT_PATH, nextQloud } from "./lib/qloud";
+import { LOGOUT_PATH, qloud } from "./lib/qloud";
 
-export const middleware = nextQloud.middleware({ authRequired: true, logoutUrlPath: LOGOUT_PATH });
+export const middleware = qloud.middleware({ authRequired: true, logoutUrlPath: LOGOUT_PATH });
 
 export const config = {
   matcher: [

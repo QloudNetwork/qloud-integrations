@@ -50,14 +50,14 @@ function escapeRegExp(regex: string): string {
   return regex.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
-interface NextQloudConfig {
+interface QloudConfig {
   secret: string;
 }
 
-export class NextQloud {
+export class Qloud {
   private readonly secret: string;
 
-  constructor({ secret }: NextQloudConfig) {
+  constructor({ secret }: QloudConfig) {
     this.secret = secret;
   }
 

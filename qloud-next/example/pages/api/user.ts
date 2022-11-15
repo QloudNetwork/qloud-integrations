@@ -1,5 +1,5 @@
 import type { NextApiResponse } from "next";
-import { nextQloud } from "../../lib/qloud";
+import { qloud } from "../../lib/qloud";
 import { NextApiRequestWithAuth } from "qloud-next";
 
 export type UserData = {
@@ -13,4 +13,4 @@ function handler(
   res.status(200).json({ email: req.auth.email })
 }
 
-export default nextQloud.apiRoute(handler, { authRequired: true });
+export default qloud.apiRoute(handler, { authRequired: true });

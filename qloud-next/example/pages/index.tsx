@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { LOGOUT_PATH, nextQloud } from '../lib/qloud';
+import { LOGOUT_PATH, qloud } from '../lib/qloud';
 import { GetServerSideProps, NextPage } from 'next';
 import { AuthOrNull } from '../../dist';
 import { useEffect, useState } from 'react';
@@ -45,7 +45,7 @@ function useFetchEmailFromApi(): string | null {
 }
 
 export const getServerSideProps: GetServerSideProps<HomeProps> = async (context) => {
-  return nextQloud.getServerSideProps(context)
+  return qloud.getServerSideProps(context)
 }
 
 export default Home;

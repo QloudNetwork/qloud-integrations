@@ -28,11 +28,11 @@ This repository contains a minimal [example application](./example/) demonstrati
 Instantiate an instance of `NextQloud` by providing the site `secret`:
 
 ```typescript
-import { NextQloud } from "qloud-next";
+import { Qloud } from "qloud-next";
 
 const DEVELOPMENT_SECRET = "00000000000000000000000000000000";
 const SECRET = process.env.QLOUD_SECRET || DEVELOPMENT_SECRET;
-const nextQloud = new NextQloud({secret: SECRET});
+const nextQloud = new Qloud({secret: SECRET});
 ```
 
 The development secret is supposed to be used for local development with https://login.loqal.host. In a production
@@ -71,8 +71,8 @@ function handler(req: NextApiRequestWithAuth, res: NextApiResponse<UserData>) {
 export default nextQloud.apiRoute(handler, {authRequired: true});
 ```
 
-If `authRequired` is set to `false`, the API will return 401 with `{ message: "Unauthorized }` as the response body for
-unauthenticated requests. If `authRequired` is set to false, the handler will be called with `auth` set to `null`.
+If `authRequired` is set to `true`, the API will return 401 with `{ message: "Unauthorized }` as the response body for
+unauthenticated requests. If `authRequired` is set to `false`, the handler will be called with `auth` set to `null`.
 
 ### Server-side props
 
