@@ -47,7 +47,9 @@ are using [optional authentication](https://docs.qloud.network/configuration/aut
 option to `false`.
 
 The middleware also registers a `logoutUrlPath` (by default `/logout`). You can link there to log out an authenticated
-user. It takes care for you to redirect to https://login.loqal.host for local development.
+user.
+
+It also takes care for you to redirect to https://login.loqal.host for local development.
 
 ```typescript
 export const middleware = qloud.middleware({authRequired: true, logoutUrlPath: "/logout"});
