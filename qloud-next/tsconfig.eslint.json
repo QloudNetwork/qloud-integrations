@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    "src/**/*.ts",
+    "__tests__/**/*.test.ts"
+  ],
+  "exclude": [
+    "__tests__/util/fetch-polyfill.js"
+  ]
+}
