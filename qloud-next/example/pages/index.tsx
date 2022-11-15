@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import { LOGOUT_PATH, qloud } from '../lib/qloud';
 import { GetServerSideProps, NextPage } from 'next';
-import { AuthOrNull } from '../../dist';
+import { AuthOrNull } from '@qloud/next';
 import { useEffect, useState } from 'react';
 import { UserData } from './api/user';
 
