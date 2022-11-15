@@ -6,11 +6,8 @@ export type UserData = {
   email: string;
 };
 
-function handler(
-  req: NextApiRequestWithAuth,
-  res: NextApiResponse<UserData>
-) {
-  res.status(200).json({ email: req.auth.email })
+function handler(req: NextApiRequestWithAuth, res: NextApiResponse<UserData>) {
+  res.status(200).json({ email: req.auth.email });
 }
 
 export default qloud.apiRoute(handler, { authRequired: true });

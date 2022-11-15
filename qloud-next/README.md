@@ -32,7 +32,7 @@ import { Qloud } from "@qloud/next";
 
 const DEVELOPMENT_SECRET = "00000000000000000000000000000000";
 const SECRET = process.env.QLOUD_SECRET || DEVELOPMENT_SECRET;
-const qloud = new Qloud({secret: SECRET});
+const qloud = new Qloud({ secret: SECRET });
 ```
 
 The development secret is supposed to be used for local development with https://login.loqal.host. In a production
@@ -52,7 +52,7 @@ user.
 It also takes care for you to redirect to https://login.loqal.host for local development.
 
 ```typescript
-export const middleware = qloud.middleware({authRequired: true, logoutUrlPath: "/logout"});
+export const middleware = qloud.middleware({ authRequired: true, logoutUrlPath: "/logout" });
 
 export const config = {
   // It might make sense to exclude certain URL paths.
@@ -68,10 +68,10 @@ Token (JWT) via the `auth` property on the request:
 
 ```typescript
 function handler(req: NextApiRequestWithAuth, res: NextApiResponse<UserData>) {
-  res.status(200).json({email: req.auth})
+  res.status(200).json({ email: req.auth });
 }
 
-export default qloud.apiRoute(handler, {authRequired: true});
+export default qloud.apiRoute(handler, { authRequired: true });
 ```
 
 If `authRequired` is set to `true`, the API will return 401 with `{ message: "Unauthorized }` as the response body for
@@ -83,18 +83,16 @@ For server-side rendering, you can use qloud-next's `getServerSideProps` helper 
 an `auth` prop that is either the `QloudToken` if the request has a valid token or null otherwise.
 
 ```typescript jsx
-import { QloudToken } from '@qloud/next';
+import { QloudToken } from "@qloud/next";
 
-const Home: NextPage = function Home({auth}: { auth: QloudToken | null }) {
+const Home: NextPage = function Home({ auth }: { auth: QloudToken | null }) {
   const token = JSON.stringify(auth);
-  return (
-    <pre>{token}</pre>
-  )
-}
+  return <pre>{token}</pre>;
+};
 
 export const getServerSideProps: GetServerSideProps<HomeProps> = async (context) => {
-  return qloud.getServerSideProps(context)
-}
+  return qloud.getServerSideProps(context);
+};
 ```
 
 ### Verify Token

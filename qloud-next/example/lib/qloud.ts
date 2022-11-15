@@ -1,4 +1,4 @@
-import { Qloud } from '@qloud/next';
+import { Qloud } from "@qloud/next";
 
 const DEVELOPMENT_SECRET = "00000000000000000000000000000000";
 const SECRET = process.env.QLOUD_SECRET || DEVELOPMENT_SECRET;
