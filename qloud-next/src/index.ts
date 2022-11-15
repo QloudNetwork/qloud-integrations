@@ -20,6 +20,11 @@ export type NextApiRequestWithAuth = NextApiRequest & Auth;
 type ApiRouteOptions = {
   authRequired: boolean;
 };
+type ApiRouteHandler<RouteOptions extends ApiRouteOptions> = (
+  req: RouteOptions["authRequired"] extends true ? NextApiRequestWithAuth : NextApiRequestWithAuthOrNull,
+  res: NextApiResponse
+) => void | Promise<void>;
+
 type MiddlewareOptions = {
   authRequired: boolean;
   logoutUrlPath?: string;
@@ -71,7 +76,7 @@ export class Qloud {
       if (!authRequired) {
         return NextResponse.next();
       } else {
-        const token = await this.verifyToken(request.cookies.get(QLOUD_TOKEN_COOKIE));
+        const token = await this.verifyToken(request.cookies.get(QLOUD_TOKEN_COOKIE)?.value);
         if (token) {
           return NextResponse.next();
         } else {
@@ -89,10 +94,7 @@ export class Qloud {
   };
 
   apiRoute = <RouteOptions extends ApiRouteOptions>(
-    handler: (
-      req: RouteOptions["authRequired"] extends true ? NextApiRequestWithAuth : NextApiRequestWithAuthOrNull,
-      res: NextApiResponse
-    ) => void | Promise<void>,
+    handler: ApiRouteHandler<RouteOptions>,
     options?: RouteOptions
   ): ((req: NextApiRequest, res: NextApiResponse) => Promise<void>) => {
     return async (req, res): Promise<void> => {
@@ -107,11 +109,7 @@ export class Qloud {
         writable: false,
         configurable: false,
       });
-      if (options?.authRequired) {
-        return handler(req as NextApiRequestWithAuth, res);
-      } else {
-        return handler(req as NextApiRequestWithAuthOrNull, res);
-      }
+      return handler(req as Parameters<ApiRouteHandler<RouteOptions>>[0], res);
     };
   };
 

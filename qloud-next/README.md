@@ -1,22 +1,11 @@
 # Qloud Integration for Next.js
 
-Integration to use [Qloud](https://qloud.network) for authentication with [Next.js](https://nextjs.org).
+Integration to use [Qloud](https://qloud.network) for authentication with [Next.js](https://nextjs.org) 13.
 
 ## Installation
 
-The major version number is equal to the supported version of Next.js. So install the version of `qloud-next` for the
-version of Next.js your application is using.
-
-### Next 13
-
 ```shell
-npm install --save qloud-next@13
-```
-
-### Next 12
-
-```shell
-npm install --save qloud-next@12
+npm install --save qloud-next
 ```
 
 ## Example Application

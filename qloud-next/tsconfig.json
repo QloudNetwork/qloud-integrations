@@ -6,11 +6,11 @@
     "moduleResolution": "node",
     "target": "es2015",
     "lib": ["dom", "dom.iterable", "esnext"],
+    "strict": true,
     "declaration": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "outDir": "./dist"
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+  "include": ["src/**/*.ts"]
 }
