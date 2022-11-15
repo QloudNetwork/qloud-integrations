@@ -1,11 +1,11 @@
 # Qloud Integration for Next.js
 
-Integration to use [Qloud](https://qloud.network) for authentication with [Next.js](https://nextjs.org) 13.
+Integration to use [Qloud](https://qloud.network) for authentication with [Next.js](https://nextjs.org) >=13.
 
 ## Installation
 
 ```shell
-npm install --save qloud-next
+npm install --save @qloud/next
 ```
 
 ## Example Application
@@ -21,7 +21,7 @@ import { Qloud } from "@qloud/next";
 
 const DEVELOPMENT_SECRET = "00000000000000000000000000000000";
 const SECRET = process.env.QLOUD_SECRET || DEVELOPMENT_SECRET;
-const qloud = new Qloud({ secret: SECRET });
+const qloud = new Qloud({secret: SECRET});
 ```
 
 The development secret is supposed to be used for local development with https://login.loqal.host. In a production
@@ -52,8 +52,8 @@ export const config = {
 
 ### API routes
 
-Wrap your API route handlers with qloud-next's `apiRoute` function. You can then access the content of the JSON Web
-Token (JWT) via the `auth` property on the request:
+Wrap your API route handlers with `apiRoute` function. You can then access the content of the JSON Web Token (JWT) via
+the `auth` property on the request:
 
 ```typescript
 function handler(req: NextApiRequestWithAuth, res: NextApiResponse<UserData>) {
@@ -68,13 +68,13 @@ unauthenticated requests. If `authRequired` is set to `false`, the handler will 
 
 ### Server-side props
 
-For server-side rendering, you can use qloud-next's `getServerSideProps` helper function. It returns
-an `auth` prop that is either the `QloudToken` if the request has a valid token or null otherwise.
+For server-side rendering, you can use the `getServerSideProps` helper function. It returns an `auth` prop that is
+either the `QloudToken` if the request has a valid token or `null` otherwise.
 
 ```typescript jsx
 import { QloudToken } from "@qloud/next";
 
-const Home: NextPage = function Home({ auth }: { auth: QloudToken | null }) {
+const Home: NextPage = function Home({auth}: { auth: QloudToken | null }) {
   const token = JSON.stringify(auth);
   return <pre>{token}</pre>;
 };
@@ -87,8 +87,8 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async (context)
 ### Verify Token
 
 If you only want to verify the token yourself without using any of the helper functions above, you can just
-call `verifyJwt` with the serialized JWT token:
+call `verifyJwt` with the serialized JWT:
 
 ```typescript
-const token: QloudToken | null = await qloud.verifyToken("<token>");
+const token: QloudToken | null = await qloud.verifyToken("<jwt>");
 ```

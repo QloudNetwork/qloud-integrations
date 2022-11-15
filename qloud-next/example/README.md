@@ -1,6 +1,6 @@
 # Qloud Next.js Example Application
 
-This is an example application demonstrating how to use [qloud-next](../) to use [Qloud](https://qloud.network) as an
+This is an example application demonstrating how to use [@qloud/next](../) to use [Qloud](https://qloud.network) as an
 authentication provider for a Next.js application.
 
 ## Start the Application
