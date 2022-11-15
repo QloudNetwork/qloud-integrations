@@ -10,13 +10,13 @@ const ANY_ROUTE_HANDLER = () => {};
 
 describe("api-route", () => {
   test("calls handler with token as auth property on reqest if token is valid", async () => {
-    const nextQloud = new Qloud({ secret: SECRET });
+    const qloud = new Qloud({ secret: SECRET });
     const token = await createJwt(SECRET);
     const { req, res } = createMocks<NextApiRequest, NextApiResponse>({
       method: "GET",
       cookies: { __q__token__: token },
     });
-    const apiRoute = nextQloud.apiRoute((req, res) => {
+    const apiRoute = qloud.apiRoute((req, res) => {
       res.status(200).json({ auth: req.auth });
     });
 
@@ -27,9 +27,9 @@ describe("api-route", () => {
   });
 
   test("calls handler with auth property set to null if token is missing", async () => {
-    const nextQloud = new Qloud({ secret: SECRET });
+    const qloud = new Qloud({ secret: SECRET });
     const { req, res } = createMocks<NextApiRequest, NextApiResponse>({ method: "GET" });
-    const apiRoute = nextQloud.apiRoute((req, res) => {
+    const apiRoute = qloud.apiRoute((req, res) => {
       res.status(200).json({ auth: req.auth });
     });
 
@@ -40,13 +40,13 @@ describe("api-route", () => {
   });
 
   test("calls handler with auth property set to null if token is signed with wrong secret", async () => {
-    const nextQloud = new Qloud({ secret: SECRET_1 });
+    const qloud = new Qloud({ secret: SECRET_1 });
     const token = await createJwt(SECRET_2);
     const { req, res } = createMocks<NextApiRequest, NextApiResponse>({
       method: "GET",
       headers: { cookie: `__q__token__=${token}` },
     });
-    const apiRoute = nextQloud.apiRoute((req, res) => {
+    const apiRoute = qloud.apiRoute((req, res) => {
       res.status(200).json({ auth: req.auth });
     });
 
@@ -57,13 +57,13 @@ describe("api-route", () => {
   });
 
   test("responds with status 401 if token is signed with wrong secret and authRequired=true", async () => {
-    const nextQloud = new Qloud({ secret: SECRET_1 });
+    const qloud = new Qloud({ secret: SECRET_1 });
     const token = await createJwt(SECRET_2);
     const { req, res } = createMocks<NextApiRequest, NextApiResponse>({
       method: "GET",
       cookies: { __q__token__: token },
     });
-    const apiRoute = nextQloud.apiRoute(ANY_ROUTE_HANDLER, { authRequired: true });
+    const apiRoute = qloud.apiRoute(ANY_ROUTE_HANDLER, { authRequired: true });
 
     await apiRoute(req, res);
 
@@ -72,9 +72,9 @@ describe("api-route", () => {
   });
 
   test("responds with status 401 if token is missing and authRequired=true", async () => {
-    const nextQloud = new Qloud({ secret: SECRET });
+    const qloud = new Qloud({ secret: SECRET });
     const { req, res } = createMocks<NextApiRequest, NextApiResponse>({ method: "GET" });
-    const apiRoute = nextQloud.apiRoute(ANY_ROUTE_HANDLER, { authRequired: true });
+    const apiRoute = qloud.apiRoute(ANY_ROUTE_HANDLER, { authRequired: true });
 
     await apiRoute(req, res);
 
