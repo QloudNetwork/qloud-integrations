@@ -42,8 +42,8 @@ enviroment, inject the secret of your site via an environment variable.
 
 The [middleware](https://nextjs.org/docs/advanced-features/middleware) redirects unauthenticated requests to Qloud's
 login page if `authRequired` is set to `true`. This makes sense if you are
-using "[required authentication](https://docs.qloud.network/configuration/authentication-mode)" for your site. If you
-are using "optional authentication", you should set this option to `false`.
+using [required authentication](https://docs.qloud.network/configuration/authentication-mode) for your site. If you
+are using [optional authentication](https://docs.qloud.network/configuration/authentication-mode), you should set this option to `false`.
 
 The middleware also registers a `logoutUrlPath` (by default `/logout`). You can link there to log out an authenticated
 user. It takes care for you to redirect to https://login.loqal.host for local development.
