@@ -14,6 +14,14 @@
     "type": "git",
     "url": "git+https://github.com/QloudNetwork/qloud-integrations.git"
   },
+  "keywords": [
+    "qloud",
+    "nextjs",
+    "authentication",
+    "react",
+    "nodejs",
+    "jwt"
+  ],
   "author": "Qloud Development Team <dev@qloud.network>",
   "license": "MIT",
   "bugs": {
