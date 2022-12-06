@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.boot.autoconfigure.security.oauth2.resource.servlet.OAuth2ResourceServerAutoConfiguration
 import org.springframework.boot.autoconfigure.web.reactive.function.client.WebClientAutoConfiguration
 import org.springframework.boot.context.properties.ConfigurationProperties
-import org.springframework.boot.context.properties.ConstructorBinding
+import org.springframework.boot.context.properties.bind.ConstructorBinding
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.context.properties.bind.DefaultValue
 import org.springframework.context.annotation.Bean
@@ -19,7 +19,6 @@ import org.springframework.context.annotation.Lazy
 import org.springframework.http.client.reactive.ClientHttpConnector
 import org.springframework.http.client.reactive.ReactorClientHttpConnector
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.config.http.SessionCreationPolicy.STATELESS
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm.HS256
 import org.springframework.security.oauth2.jwt.JwtDecoder
@@ -79,12 +78,12 @@ class QloudAutoConfiguration(private val properties: QloudProperties) {
     }
 
     @Configuration
-    @ConditionalOnMissingBean(SecurityFilterChain::class, WebSecurityConfigurerAdapter::class)
+    @ConditionalOnMissingBean(SecurityFilterChain::class)
     class QloudSecurityConfiguration {
         @Bean
         fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
             return http.oauth2ResourceServer { configurer -> configurer.jwt() }
-                .authorizeRequests { authorize ->
+                .authorizeHttpRequests { authorize ->
                     authorize.anyRequest().authenticated().and()
                         .sessionManagement().sessionCreationPolicy(STATELESS)
                 }.build()
@@ -92,9 +91,8 @@ class QloudAutoConfiguration(private val properties: QloudProperties) {
     }
 }
 
-@ConstructorBinding
 @ConfigurationProperties(prefix = "qloud")
-data class QloudProperties(
+data class QloudProperties @ConstructorBinding constructor (
     /**
      * Application domain (e.g. my-app.qloud.space)
      */

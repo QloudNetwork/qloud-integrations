@@ -1,6 +1,5 @@
 package network.qloud.integrations.boot
 
-import com.google.common.collect.Maps.immutableEntry
 import network.qloud.integrations.boot.api.QloudApi
 import network.qloud.integrations.boot.api.StubbedQloudApi
 import org.assertj.core.api.Assertions.assertThat
@@ -64,8 +63,9 @@ class QloudAutoConfigurationTest {
         contextRunner
             .withPropertyValues("qloud.secret=secret", "qloud.domain=domain")
             .withBean("customQloudApi", QloudApi::class.java, { customQloudApi }).run { context ->
-                assertThat(context).getBeans(QloudApi::class.java)
-                    .containsOnly(immutableEntry("customQloudApi", customQloudApi))
+                val qloudApiBeans = assertThat(context).getBeans(QloudApi::class.java)
+                qloudApiBeans.hasSize(1)
+                qloudApiBeans.containsEntry("customQloudApi", customQloudApi)
             }
     }
 
