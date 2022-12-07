@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.boot.autoconfigure.web.reactive.function.client.WebClientAutoConfiguration
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner
 import org.springframework.http.client.reactive.ClientHttpConnector
-import org.springframework.http.client.reactive.HttpComponentsClientHttpConnector
+import org.springframework.http.client.reactive.JdkClientHttpConnector
 import org.springframework.http.client.reactive.ReactorClientHttpConnector
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration
 import org.springframework.security.oauth2.jwt.JwtDecoder
@@ -82,11 +82,11 @@ class QloudAutoConfigurationTest {
     fun `allows overriding of qloudApiHttpConnector`() {
         contextRunner
             .withPropertyValues("qloud.secret=secret")
-            .withBean("qloudApiHttpConnector", ClientHttpConnector::class.java, { HttpComponentsClientHttpConnector() })
+            .withBean("qloudApiHttpConnector", ClientHttpConnector::class.java, { JdkClientHttpConnector() })
             .run { context ->
                 assertThat(context)
                     .getBean("qloudApiHttpConnector")
-                    .isInstanceOf(HttpComponentsClientHttpConnector::class.java)
+                    .isInstanceOf(JdkClientHttpConnector::class.java)
             }
     }
 }
