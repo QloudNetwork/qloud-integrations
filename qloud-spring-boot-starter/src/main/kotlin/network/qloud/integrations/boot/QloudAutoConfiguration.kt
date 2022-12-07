@@ -10,7 +10,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.boot.autoconfigure.security.oauth2.resource.servlet.OAuth2ResourceServerAutoConfiguration
 import org.springframework.boot.autoconfigure.web.reactive.function.client.WebClientAutoConfiguration
 import org.springframework.boot.context.properties.ConfigurationProperties
-import org.springframework.boot.context.properties.bind.ConstructorBinding
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.context.properties.bind.DefaultValue
 import org.springframework.context.annotation.Bean
@@ -92,7 +91,7 @@ class QloudAutoConfiguration(private val properties: QloudProperties) {
 }
 
 @ConfigurationProperties(prefix = "qloud")
-data class QloudProperties @ConstructorBinding constructor (
+data class QloudProperties(
     /**
      * Application domain (e.g. my-app.qloud.space)
      */
