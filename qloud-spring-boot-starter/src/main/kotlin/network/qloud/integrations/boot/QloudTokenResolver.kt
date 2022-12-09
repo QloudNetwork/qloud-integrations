@@ -1,7 +1,7 @@
 package network.qloud.integrations.boot
 
 import org.springframework.security.oauth2.server.resource.web.BearerTokenResolver
-import javax.servlet.http.HttpServletRequest
+import jakarta.servlet.http.HttpServletRequest
 
 class QloudTokenResolver : BearerTokenResolver {
     private companion object {

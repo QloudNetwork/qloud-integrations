@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>network.qloud</groupId>
     <artifactId>qloud-spring-boot-starter</artifactId>
     <version>0.2.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>Qloud Spring Boot Starter</name>
-    <description>Qloud Spring Boot Starter to easily integrate Qloud authentication with Spring Boot projects</description>
+    <description>
+        Qloud Spring Boot Starter to easily integrate Qloud authentication with Spring Boot projects
+    </description>
     <url>https://github.com/QloudNetwork/qloud-integrations</url>
 
     <licenses>
@@ -29,21 +32,21 @@
         <connection>scm:git:git://github.com/QloudNetwork/qloud-integrations.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/QloudNetwork/qloud-integrations.git</developerConnection>
         <url>https://github.com/QloudNetwork/qloud-integrations</url>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <spring-boot.version>2.7.6</spring-boot.version>
-        <kotlin.version>1.7.22</kotlin.version>
+        <spring-boot.version>3.0.0</spring-boot.version>
+        <kotlin.version>1.7.21</kotlin.version>
         <mockk.version>1.13.3</mockk.version>
         <wiremock.version>2.35.0</wiremock.version>
         <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
         <maven-javadoc-plugin.version>3.2.0</maven-javadoc-plugin.version>
         <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
-        <java.version>11</java.version>
+        <java.version>17</java.version>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
@@ -114,7 +117,7 @@
         </dependency>
         <dependency>
             <groupId>com.github.tomakehurst</groupId>
-            <artifactId>wiremock-jre8</artifactId>
+            <artifactId>wiremock-jre8-standalone</artifactId>
             <version>${wiremock.version}</version>
             <scope>test</scope>
         </dependency>
