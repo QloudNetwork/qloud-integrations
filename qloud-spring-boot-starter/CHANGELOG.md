@@ -2,7 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
-## [0.2.0.RC1] 2022-12-07
+## [0.3.0-SNAPSHOT]
+
+## [0.2.0] 2022-12-15
 
 ### Changed
 
@@ -14,5 +16,5 @@ All notable changes to this project will be documented in this file.
 
  - Initial release supporting Spring Boot 2.
 
-[0.2.0.RC1]: https://github.com/QloudNetwork/qloud-integrations/tree/qloud-spring-boot-starter-0.2.0.RC1/qloud-spring-boot-starter
-[0.1.0]: https://github.com/QloudNetwork/qloud-integrations/tree/qloud-spring-boot-starter-0.1.0
+[0.2.0]: https://github.com/QloudNetwork/qloud-integrations/tree/qloud-spring-boot-starter-0.2.0/qloud-spring-boot-starter
+[0.1.0]: https://github.com/QloudNetwork/qloud-integrations/tree/qloud-spring-boot-starter-0.1.0/qloud-spring-boot-starter

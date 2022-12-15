@@ -13,14 +13,14 @@ Add the `qloud-spring-boot-starter` as a dependency to your pom.xml. Versions >=
 <dependency>
     <groupId>network.qloud</groupId>
     <artifactId>qloud-spring-boot-starter</artifactId>
-    <version>0.2.0.RC1</version>
+    <version>0.2.0</version>
 </dependency>
 ```
 
 Or your gradle.build:
 
 ```kotlin
-implementation("network.qloud:qloud-spring-boot-starter:0.2.0.RC1")
+implementation("network.qloud:qloud-spring-boot-starter:0.2.0")
 ```
 
 Add the secret of your Qloud application to the application properties:
