@@ -26,8 +26,8 @@
   "homepage": "https://github.com/QloudNetwork/qloud-integrations",
   "dependencies": {
     "cookie": "^0.5.0",
-    "express-jwt": "^7.7.5",
-    "jsonwebtoken": "^8.5.1"
+    "express-jwt": "^8.0.0",
+    "jsonwebtoken": "^9.0.0"
   },
   "devDependencies": {
     "express": "^4.18.1",
